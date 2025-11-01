@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 20:19:02 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/02 01:01:23 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ typedef struct s_header
 	char	*ea_path;
 	int		*f_rgb[3];
 	int		*c_rgb[3];
-	char	orientation;
-
+	
 }			t_header;
 
 typedef struct s_map
 {
 	char	**map;
+	char	orientation;
 }			t_map;
 
 #endif

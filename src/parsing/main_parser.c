@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:15:14 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 00:42:56 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/02 01:26:59 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	main_parser(char *header, t_map *init)
 {
 	int fd;
 	fd = open(header, O_RDONLY);
-	if (header_parse(fd, init) == 1)
-		exit(1);
-	if (map_parse(fd, init) == 1)
-		exit(1);
+	header_parse(fd, init);
+	map_parse(fd, init);
 }

@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mapcontrol.c                                       :+:      :+:    :+:   */
+/*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 20:11:36 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/02 01:28:01 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	map_parse(char *line)
+void	map_parse(t_map *map)
 {
-	if(!line)
-		error_exit("Invalid Map");
+	int i = 0;
 	
 }

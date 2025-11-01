@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/02 00:55:11 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/02 01:07:30 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	is_map_line(char *line)
 			|| line[i] == ' ' || line[i] == 'E' || line[i] == 'W')
 			flag = 1;
 		else if (line[i] != ' ') // at least one valid char check!
-			return (0);
+			error_exit_header("Invalid Map");
 		i++;
 	}
 	return (flag);
