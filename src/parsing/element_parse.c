@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 20:33:37 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/02 00:55:11 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	header_parse(int fd, t_header *init, t_map *init_map)
 		{
 			while ((line = get_next_line(fd)) != NULL)
 			{
-				init_map->map[i] = line;
+				init_map->map[i] = ft_strdup(line);
 				i++;
 				free(line);
 			}
@@ -70,13 +70,13 @@ static void	identifier_check(t_header *init, char *line)
 static void	identifier_load(t_header *init, char *line)
 {
 	if (init->type == NO)
-		init->no_path = ft_strtrim(ft_path_maker(line, init), " \t\n");
+		init->no_path = ft_path_maker(line, init), " \t\n";
 	else if (init->type == SO)
-		init->so_path = ft_strtrim(ft_path_maker(line, init), " \t\n");
+		init->so_path = ft_path_maker(line, init), " \t\n";
 	else if (init->type == WE)
-		init->we_path = ft_strtrim(ft_path_maker(line, init), " \t\n");
+		init->we_path = ft_path_maker(line, init), " \t\n";
 	else if (init->type == EA)
-		init->ea_path = ft_strtrim(ft_path_maker(line, init), " \t\n");
+		init->ea_path = ft_path_maker(line, init), " \t\n";
 	else if (init->type == F || init->type == C)
 		f_c_load(init, ft_path_maker(line, init));
 }
@@ -108,18 +108,21 @@ static void	f_c_load(t_header *init, char *ptr)
 	}
 	ft_split_free(temp);
 }
+
 int	is_map_line(char *line)
 {
-	int i = 0;
-	int flag = 0;
+	int	i;
+	int	flag;
 
-	while (line[i])
+	i = 0;
+	flag = 0;
+	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S'
-			|| line[i] == ' ')
-			flag == 1;
-		else
-			flag == 0;
+			|| line[i] == ' ' || line[i] == 'E' || line[i] == 'W')
+			flag = 1;
+		else if (line[i] != ' ') // at least one valid char check!
+			return (0);
 		i++;
 	}
 	return (flag);

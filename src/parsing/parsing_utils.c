@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 20:33:08 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/02 00:45:14 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ void	ft_split_free(char **temp)
 	int	i;
 
 	i = 0;
+	if (!temp)
+		return ;
 	while (temp[i])
 	{
 		free(temp[i]);
 		i++;
 	}
+	free(temp);
 }
 
-void	ft_path_maker(char *line, t_header *init)
+char	*ft_path_maker(char *line, t_header *init)
 {
 	char	*ptr;
 	char	*start;
@@ -51,11 +54,11 @@ void	ft_path_maker(char *line, t_header *init)
 	end = start;
 	while (*end && !ft_isspace(*end) && *end != '\n')
 		end++;
-	path = ft_substr(start, 0, end - start);
 	while (ft_isspace(*end))
 		end++;
 	if (*end != '\0')
 		error_exit("Extra tokens in path line!!");
+	path = ft_substr(start, 0, end - start);
 	return (path);
 }
 
@@ -82,7 +85,7 @@ int	ft_atol(const char *nptr)
 		number = number * 10 + (nptr[i] - 48);
 		i++;
 	}
-	if (number * sign > 255 || number * sign < 0)
+	if (number * sign > 255 || number * sign < 0 || nptr[i] != '\0')
 		return (-1);
 	return (number * sign);
 }
