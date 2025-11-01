@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 01:24:22 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/01 18:57:17 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,27 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+enum		TYPE
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+	ERROR,
+};
+
 typedef struct s_header
 {
-	
 	char	**map;
-	char	*n_path;
-	char	*s_path;
-	char	*n_path;
-	char	*n_path;
-	char	*n_path;
-	char	*n_path;
+	int		type;
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	int		*f_rgb[3];
+	int		*c_rgb[3];
 	char	orientation;
 
 }			t_header;
