@@ -6,13 +6,15 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 00:21:46 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/01 20:11:36 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	map_parse(int fd)
+void	map_parse(char *line)
 {
-			
+	if(!line)
+		error_exit("Invalid Map");
+	
 }

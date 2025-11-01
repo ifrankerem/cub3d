@@ -6,25 +6,40 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 19:42:05 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/01 20:33:37 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	header_parse(int fd, t_header *init)
+void	header_parse(int fd, t_header *init, t_map *init_map)
 {
 	char	*line;
+	int		i;
 
+	i = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		identifier_check(init, line);
-		if (init->type == ERROR)
+		if (is_map_line(line) == 1)
 		{
-			free(line);
-			error_exit("Please enter identifiers correctly!!");
+			while ((line = get_next_line(fd)) != NULL)
+			{
+				init_map->map[i] = line;
+				i++;
+				free(line);
+			}
+			break ;
 		}
-		identifier_load(init, line);
+		else
+		{
+			identifier_check(init, line);
+			if (init->type == ERROR)
+			{
+				free(line);
+				error_exit("Please enter identifiers correctly!!");
+			}
+			identifier_load(init, line);
+		}
 		free(line);
 	}
 }
@@ -54,24 +69,16 @@ static void	identifier_check(t_header *init, char *line)
 
 static void	identifier_load(t_header *init, char *line)
 {
-	char	*ptr;
-
-	ptr = line;
-	while (ft_isspace(*ptr))
-		ptr++;
-	ptr += 2;
-	while (ft_isspace(*ptr))
-		ptr++;
 	if (init->type == NO)
-		init->no_path = ft_strtrim(ptr, " \t\n");
+		init->no_path = ft_strtrim(ft_path_maker(line, init), " \t\n");
 	else if (init->type == SO)
-		init->so_path = ft_strtrim(ptr, " \t\n");
+		init->so_path = ft_strtrim(ft_path_maker(line, init), " \t\n");
 	else if (init->type == WE)
-		init->we_path = ft_strtrim(ptr, " \t\n");
+		init->we_path = ft_strtrim(ft_path_maker(line, init), " \t\n");
 	else if (init->type == EA)
-		init->ea_path = ft_strtrim(ptr, " \t\n");
+		init->ea_path = ft_strtrim(ft_path_maker(line, init), " \t\n");
 	else if (init->type == F || init->type == C)
-		f_c_load(init, ptr);
+		f_c_load(init, ft_path_maker(line, init));
 }
 
 static void	f_c_load(t_header *init, char *ptr)
@@ -94,10 +101,26 @@ static void	f_c_load(t_header *init, char *ptr)
 		else
 			init->c_rgb[i] = ft_atol(trim);
 		free(trim);
-		if ((init->type == F) && (init->f_rgb[i] == -1) || ((init->type == C)
+		if (((init->type == F) && (init->f_rgb[i] == -1)) || ((init->type == C)
 				&& (init->c_rgb[i] == -1)))
 			error_exit("invalid RGB");
 		i++;
 	}
-	split_free(temp);
+	ft_split_free(temp);
+}
+int	is_map_line(char *line)
+{
+	int i = 0;
+	int flag = 0;
+
+	while (line[i])
+	{
+		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S'
+			|| line[i] == ' ')
+			flag == 1;
+		else
+			flag == 0;
+		i++;
+	}
+	return (flag);
 }

@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 19:40:07 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/01 20:33:08 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 int	ft_isspace(char c)
 {
-	if (c == ' ' || c == '\t')
+	if (c == ' ' || c == '\t' || c == '\r' || c == '\v' || c == '\f')
 		return (1);
 	else
 		return (0);
 }
-void	split_free(char **temp)
+void	ft_split_free(char **temp)
 {
 	int	i;
 
@@ -30,6 +30,33 @@ void	split_free(char **temp)
 		free(temp[i]);
 		i++;
 	}
+}
+
+void	ft_path_maker(char *line, t_header *init)
+{
+	char	*ptr;
+	char	*start;
+	char	*end;
+	char	*path;
+
+	ptr = line;
+	while (ft_isspace(*ptr))
+		ptr++;
+	ptr += 2;
+	while (ft_isspace(*ptr))
+		ptr++;
+	if (init->type == F || init->type == C)
+		return (ptr);
+	start = ptr;
+	end = start;
+	while (*end && !ft_isspace(*end) && *end != '\n')
+		end++;
+	path = ft_substr(start, 0, end - start);
+	while (ft_isspace(*end))
+		end++;
+	if (*end != '\0')
+		error_exit("Extra tokens in path line!!");
+	return (path);
 }
 
 int	ft_atol(const char *nptr)

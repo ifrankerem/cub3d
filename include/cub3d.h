@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/01 18:57:17 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/01 20:19:02 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ enum		TYPE
 
 typedef struct s_header
 {
-	char	**map;
 	int		type;
 	char	*no_path;
 	char	*so_path;
@@ -46,5 +45,10 @@ typedef struct s_header
 	char	orientation;
 
 }			t_header;
+
+typedef struct s_map
+{
+	char	**map;
+}			t_map;
 
 #endif
