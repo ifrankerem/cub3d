@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/02 01:07:30 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/02 02:15:40 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	header_parse(int fd, t_header *init, t_map *init_map)
 	i = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		if (is_map_line(line) == 1)
+		if (is_map_started(line) == 1)
 		{
+			init_map->raw_map[i] = ft_strdup(line);
 			while ((line = get_next_line(fd)) != NULL)
 			{
-				init_map->map[i] = ft_strdup(line);
+				init_map->raw_map[i] = ft_strdup(line);
 				i++;
 				free(line);
 			}
@@ -36,7 +37,7 @@ void	header_parse(int fd, t_header *init, t_map *init_map)
 			if (init->type == ERROR)
 			{
 				free(line);
-				error_exit("Please enter identifiers correctly!!");
+				error_exit("Please enter identifiers correctly!!\n");
 			}
 			identifier_load(init, line);
 		}
@@ -70,13 +71,13 @@ static void	identifier_check(t_header *init, char *line)
 static void	identifier_load(t_header *init, char *line)
 {
 	if (init->type == NO)
-		init->no_path = ft_path_maker(line, init), " \t\n";
+		init->no_path = ft_path_maker(line, init);
 	else if (init->type == SO)
-		init->so_path = ft_path_maker(line, init), " \t\n";
+		init->so_path = ft_path_maker(line, init);
 	else if (init->type == WE)
-		init->we_path = ft_path_maker(line, init), " \t\n";
+		init->we_path = ft_path_maker(line, init);
 	else if (init->type == EA)
-		init->ea_path = ft_path_maker(line, init), " \t\n";
+		init->ea_path = ft_path_maker(line, init);
 	else if (init->type == F || init->type == C)
 		f_c_load(init, ft_path_maker(line, init));
 }
@@ -90,12 +91,12 @@ static void	f_c_load(t_header *init, char *ptr)
 	i = 0;
 	temp = ft_split(ptr, ',');
 	if (!temp || !temp[0] || !temp[1] || !temp[2] || temp[3])
-		error_exit("Invalid RGB format");
+		error_exit("Invalid RGB format\n");
 	while (i < 3)
 	{
 		trim = ft_strtrim(temp[i], " \t\n");
 		if (!trim || !*trim)
-			error_exit("Empty RGB value");
+			error_exit("Empty RGB value\n");
 		if (init->type == F)
 			init->f_rgb[i] = ft_atol(trim);
 		else
@@ -103,27 +104,23 @@ static void	f_c_load(t_header *init, char *ptr)
 		free(trim);
 		if (((init->type == F) && (init->f_rgb[i] == -1)) || ((init->type == C)
 				&& (init->c_rgb[i] == -1)))
-			error_exit("invalid RGB");
+			error_exit("invalid RGB\n");
 		i++;
 	}
 	ft_split_free(temp);
 }
 
-int	is_map_line(char *line)
+int	is_map_started(char *line)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = 0;
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S'
-			|| line[i] == ' ' || line[i] == 'E' || line[i] == 'W')
-			flag = 1;
-		else if (line[i] != ' ') // at least one valid char check!
-			error_exit_header("Invalid Map");
+			|| line[i] == 'E' || line[i] == 'W')
+			return (1);
 		i++;
 	}
-	return (flag);
+	return (0);
 }

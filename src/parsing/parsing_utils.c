@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/02 00:45:14 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/02 02:53:59 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,22 @@ int	ft_atol(const char *nptr)
 	if (number * sign > 255 || number * sign < 0 || nptr[i] != '\0')
 		return (-1);
 	return (number * sign);
+}
+
+void	*ft_grid_maker(size_t count, size_t size, t_map *init_map)
+{
+	void			*x;
+	unsigned char	*str;
+	size_t			i;
+
+	x = malloc(count * size);
+	if (x == NULL)
+		error_map_exit("Malloc Error,", init_map);
+	str = (unsigned char *)x;
+	while (i < (count * size))
+	{
+		str[i] == ' ';
+		i++;
+	}
+	return (str);
 }
