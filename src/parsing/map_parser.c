@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/02 03:01:18 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/03 22:37:34 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 void	map_parse(t_map *map)
 {
+	char **cpy_map;
 	is_chars_valid(map);
 	is_empty_line(map);
 	info(map);
+	cpy_map = make_copy(map);
+	flood_fill_for_space(cpy_map,map);
+	copy_mapcontrol_space(map,cpy_map);
+	free_cpymap(map->raw_map);
 }
 
 void	is_chars_valid(t_map *map)
@@ -112,8 +117,7 @@ static void	make_grid(t_map *map)
 	}
 	map->grid = ft_grid_maker(sizeof(char *), (column + 2), map);
 	while (++y < column + 2)
-		map->grid[y] = ft_grid_maker(sizeof(char), (max_x + 3), map);
-	// include '\0' + 2
+		map->grid[y] = ft_grid_maker(sizeof(char), (max_x + 3), map); // include '\0' + 2
 	fill_grid(map);
 	map->height = max_y;
 	map->width = max_x;

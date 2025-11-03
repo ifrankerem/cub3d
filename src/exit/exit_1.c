@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:41:46 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/02 02:47:59 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/03 22:33:42 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ void	error_map_exit(char *error_message, t_map *init_map)
 			i++;
 		}
 		free(init_map->raw_map);
+	}
+	if (init_map->grid)
+	{
+		while (init_map->grid[i])
+		{
+			free(init_map->grid[i]);
+			i++;
+		}
+		free(init_map->grid);
 	}
 	printf("%s", error_message);
 	exit(1);
