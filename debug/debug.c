@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 00:57:00 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/02 01:03:31 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/03 23:53:51 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 
 void	debug(t_map *a, t_header *b)
 {
+	(void)a;
 	printf("Path Debug\n");
 	printf("No Path: '%s'\n", b->no_path);
 	printf("So Path: '%s'\n", b->so_path);
 	printf("We Path: '%s'\n", b->we_path);
 	printf("Ea Path: '%s'\n", b->ea_path);
-	for (int i = 0; b->f_rgb[i], i++)
+	for (int i = 0; i < 3; i++)
 		printf("F rgbs: '%d'\n", b->f_rgb[i]);
-	for (int i = 0; b->c_rgb[i], i++)
+	for (int i = 0; i < 3; i++)
 		printf("C rgbs: '%d'\n", b->c_rgb[i]);
-	printf("MapLines:\n");
-	for (int i = 0; a->map[i], i++)
-		printf("Line:%d '%s'", i, a->map[i]);
+	// printf("MapLines:\n");
+	// printf("Raw_Map:\n");
+	// for (int i = 0; a->raw_map[i]; i++)
+	// 	printf("Line:%d '%s'", i, a->raw_map[i]);
+	// printf("Grid:\n");
+	// for (int i = 0; a->grid[i]; i++)
+	// 	printf("Line:%d '%s'", i, a->grid[i]);
 }

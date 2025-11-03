@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/02 02:53:59 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/04 00:31:03 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ char	*ft_path_maker(char *line, t_header *init)
 		end++;
 	while (ft_isspace(*end))
 		end++;
-	if (*end != '\0')
-		error_exit("Extra tokens in path line!!");
+	if (*end != '\0' && *end != '\n')
+		error_exit_header("Error\nExtra tokens in path line!!\n", init);
 	path = ft_substr(start, 0, end - start);
 	return (path);
 }
@@ -98,11 +98,11 @@ void	*ft_grid_maker(size_t count, size_t size, t_map *init_map)
 
 	x = malloc(count * size);
 	if (x == NULL)
-		error_map_exit("Malloc Error,", init_map);
+		error_map_exit("Error\nMalloc Error\n,", init_map);
 	str = (unsigned char *)x;
 	while (i < (count * size))
 	{
-		str[i] == ' ';
+		str[i] = ' ';
 		i++;
 	}
 	return (str);

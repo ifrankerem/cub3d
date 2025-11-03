@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 03:12:48 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/03 22:38:35 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/03 22:44:12 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	**make_copy(t_map *map)
 	y = 0;
 	cpy_map = (char **)malloc(sizeof(char *) * (map->width + 1));
 	if (!cpy_map)
-		ft_error(map, 8);
+		error_map_exit("Error\n Malloc Error!\n", map);
 	while (map->grid[y])
 	{
 		x = 0;
 		cpy_map[y] = (char *)malloc(sizeof(char) * (map->height) + 1);
 		if (!(cpy_map[y]))
-			ft_error(map, 8);
+			error_map_exit("Error\n Malloc Error!\n", map);
 		while (map->grid[y][x])
 		{
 			cpy_map[y][x] = map->grid[y][x];
@@ -76,10 +76,11 @@ void	copy_mapcontrol_space(t_map *map, char **cpy_map2)
 		while (cpy_map2[y][x])
 		{
 			if (cpy_map2[y][x] == 'N' || cpy_map2[y][x] == 'S'
-				|| cpy_map2[y][x] == 'E' || cpy_map2[y][x] == 'W' || cpy_map2[y][x] == '0')
+				|| cpy_map2[y][x] == 'E' || cpy_map2[y][x] == 'W'
+				|| cpy_map2[y][x] == '0')
 			{
 				free_cpymap(cpy_map2);
-				error_map_exit("There is space which is not covered!", map);
+				error_map_exit("Error\nThere is space which is not covered!\n", map);
 			}
 			x++;
 		}
@@ -89,7 +90,7 @@ void	copy_mapcontrol_space(t_map *map, char **cpy_map2)
 
 void	free_cpymap(char **cpy_map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!cpy_map)

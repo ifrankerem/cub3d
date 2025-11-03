@@ -6,16 +6,19 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:15:14 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/02 01:26:59 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/04 00:01:38 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	main_parser(char *header, t_map *init)
+void	main_parser(char *header, t_header *init, t_map *map)
 {
-	int fd;
+	int	fd;
+
 	fd = open(header, O_RDONLY);
-	header_parse(fd, init);
-	map_parse(fd, init);
+	if (fd == -1)
+		return (printf("Error\nInvalid file name!\n"), exit(1));
+	header_parse(fd, init, map);
+	map_parse(map);
 }
