@@ -1,0 +1,10 @@
+# build artifacts
+*.o
+*.a
+*.so
+*.dSYM/
+*.swp
+*.out
+cub3d_debug
+build/
+obj/
