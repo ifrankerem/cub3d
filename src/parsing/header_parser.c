@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 00:47:52 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/04 04:08:28 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,21 +96,13 @@ static int	is_map_started(char *line)
 void	header_parse(int fd, t_header *init, t_map *init_map)
 {
 	char	*line;
-	int		i;
 
-	i = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		if ((is_map_started(line) == 1) && (init->ea_path && init->we_path
 				&& init->so_path && init->no_path && (init->flag == 2)))
 		{
-			init_map->raw_map[i] = ft_strdup(line);
-			while ((line = get_next_line(fd)) != NULL)
-			{
-				init_map->raw_map[i] = ft_strdup(line);//error çöz!!! 
-				i++;
-				free(line);
-			}
+			raw_map_filler(line, init_map, fd);
 			break ;
 		}
 		else if (line[0] == '\n')

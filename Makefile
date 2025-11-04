@@ -6,7 +6,7 @@
 #    By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/04 00:08:24 by iarslan          ###   ########.fr        #
+#    Updated: 2025/11/04 01:58:37 by iarslan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC := \
 	$(PARSE_DIR)/flood_fill.c \
 	$(PARSE_DIR)/cpymap.c \
 	$(PARSE_DIR)/parsing_utils.c \
+	$(PARSE_DIR)/parsing_utils2.c \
 	$(EXIT_DIR)/exit_1.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c

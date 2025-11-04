@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 00:31:03 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/04 02:38:50 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	*ft_grid_maker(size_t count, size_t size, t_map *init_map)
 	unsigned char	*str;
 	size_t			i;
 
+	i = 0;
 	x = malloc(count * size);
 	if (x == NULL)
 		error_map_exit("Error\nMalloc Error\n,", init_map);
@@ -105,5 +106,6 @@ void	*ft_grid_maker(size_t count, size_t size, t_map *init_map)
 		str[i] = ' ';
 		i++;
 	}
+	str[i] = '\0';
 	return (str);
 }
