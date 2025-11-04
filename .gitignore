@@ -6,5 +6,6 @@
 *.swp
 *.out
 cub3d_debug
+cub3d
 build/
 obj/
