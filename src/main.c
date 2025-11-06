@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 04:26:28 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/06 02:27:37 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 
 int	main(int argc, char **argv)
 {
-	t_header	*init;
+	t_header	*header;
 	t_map		*map;
 
 	if (argc != 2)
-		return (printf("Error\nInvalid Program Use!\n"), 1);
-	init = malloc(sizeof(*init));
-	if (!init)
-		return (free(init), printf("Error\nMallocError\n"), 1);
+		return (ft_putendl_fd("Error\nInvalid Program Use!", 2), 1);
+	header = malloc(sizeof(*header));
+	if (!header)
+		error_exit_all("Malloc Error", NULL, NULL);
+	ft_bzero(header, sizeof(*header));
 	map = malloc(sizeof(*map));
 	if (!map)
-		return (free(map), printf("Error\nMallocError\n"), 1);
-	main_parser(argv[1], init, map);
-	debug(map, init);
-	free(map);
-	free(init);
+		error_exit_all("Malloc Error", header, NULL);
+	ft_bzero(map, sizeof(*map));
+	main_parser(argv[1], header, map);
+	debug(map, header);
+	cleanup_all(header, map);
+	return (0);
 }

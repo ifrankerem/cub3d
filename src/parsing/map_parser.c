@@ -6,39 +6,42 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 04:28:52 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/06 02:53:04 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	is_chars_valid(t_map *map)
+static void	is_chars_valid(t_map *map, t_header *header)
 {
 	int	i;
 	int	j;
-	int	flag;
+	int	p_count;
 
-	flag = 0;
+	p_count = 0;
 	i = -1;
 	while (map->raw_map[++i])
 	{
 		j = -1;
 		while (map->raw_map[i][++j])
 		{
-			if (map->raw_map[i][j] == '0' || map->raw_map[i][j] == '1'
-				|| map->raw_map[i][j] == 'N' || map->raw_map[i][j] == 'S'
-				|| map->raw_map[i][j] == 'E' || map->raw_map[i][j] == 'W'
-				|| map->raw_map[i][j] == ' ')
-				flag = 1;
-			else
-				flag = 0;
+			if (!(map->raw_map[i][j] == '0' || map->raw_map[i][j] == '1'
+					|| map->raw_map[i][j] == 'N' || map->raw_map[i][j] == 'S'
+					|| map->raw_map[i][j] == 'E' || map->raw_map[i][j] == 'W'
+					|| map->raw_map[i][j] == ' '))
+				error_exit_all("Invalid Chars in MAP!", header, map);
+			else if (map->raw_map[i][j] == 'N' || map->raw_map[i][j] == 'S'
+				|| map->raw_map[i][j] == 'E' || map->raw_map[i][j] == 'W')
+				p_count++;
 		}
 	}
-	if (flag == 0)
-		error_map_exit("Error\nInvalid Chars in MAP!!\n", map);
+	if (p_count > 1)
+		error_exit_all("Multiple player spawns", header, map);
+	else if (p_count == 0)
+		error_exit_all("There is no Player", header, map);
 }
 
-static void	is_empty_line(t_map *map)
+static void	is_empty_line(t_map *map, t_header *header)
 {
 	int	i;
 	int	flag;
@@ -50,18 +53,16 @@ static void	is_empty_line(t_map *map)
 	{
 		len = ft_strlen(map->raw_map[i]);
 		if (len == 0)
-			error_map_exit("Error\nThere is an empty line in the MAP!!\n,map",
-				map);
+			error_exit_all("There is an empty line in the MAP!", header, map);
 		j = -1;
 		flag = 1;
 		while (map->raw_map[i][++j])
 		{
 			if (map->raw_map[i][j] != ' ')
 				flag = 0;
-			if (flag == 1)
-				error_map_exit("Error\nThere is an empty line in the MAP!!\n",
-					map);
 		}
+		if (flag == 1)
+			error_exit_all("There is an empty line in the MAP!", header, map);
 	}
 }
 
@@ -85,7 +86,7 @@ static void	fill_grid(t_map *map)
 	map->grid[y + 2] = NULL;
 }
 
-static void	make_grid(t_map *map)
+static void	make_grid(t_map *map, t_header *header)
 {
 	int	y;
 	int	column;
@@ -102,18 +103,18 @@ static void	make_grid(t_map *map)
 			max_x = len;
 		column++;
 	}
-	map->grid = malloc(sizeof(char *) * (column + 2));
+	map->grid = malloc(sizeof(char *) * (column + 3)); //for null
 	if (!map->grid)
-		error_map_exit("Error\nMalloc Error\n,", map);
+		error_exit_all("Malloc Error", header, map);
 	while (++y < column + 2)
-		map->grid[y] = ft_grid_maker(sizeof(char), (max_x + 2), map);
-	// include '\0' + ' '
+		map->grid[y] = ft_grid_maker(sizeof(char), (max_x + 2), map, header);
+	map->grid[y] = NULL;
 	fill_grid(map);
 	map->height = y;
 	map->width = max_x + 2;
 }
 
-static void	info(t_map *map)
+static void	info(t_map *map, t_header *header)
 {
 	int	i;
 	int	j;
@@ -134,18 +135,18 @@ static void	info(t_map *map)
 				map->orientation = E;
 		}
 	}
-	make_grid(map);
+	make_grid(map, header);
 }
 
-void	map_parse(t_map *map)
+void	map_parse(t_map *map, t_header *header)
 {
 	char	**cpy_map;
 
-	is_chars_valid(map);
-	is_empty_line(map);
-	info(map);
-	cpy_map = make_copy(map);
-	copy_mapcontrol_space(map, cpy_map);
-	free_cpymap(cpy_map);
-	//free_cpymap(map->raw_map); for debugging
+	is_chars_valid(map, header);
+	is_empty_line(map, header);
+	info(map, header);
+	cpy_map = make_copy(map, header);
+	copy_mapcontrol_space(map, cpy_map, header);
+	free_2d_array(cpy_map);
+	// free_2d_array(map->raw_map); FOR DEBUG
 }

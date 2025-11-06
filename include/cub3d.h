@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 04:25:00 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/06 02:17:05 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ enum		TYPE
 
 enum		ORIENTATION
 {
-	N,
+	N = 2,
 	S,
 	W,
 	E,
@@ -64,29 +64,36 @@ typedef struct s_map
 }			t_map;
 
 // FOR DEBUG DELETE BEFORE EVAL
-void		debug(const t_map *m, const t_header *h);
+void		debug(t_map *m, t_header *h);
 
 // Main
 void		main_parser(char *header, t_header *init, t_map *map);
 void		header_parse(int fd, t_header *init, t_map *init_map);
-void		map_parse(t_map *map);
+void		map_parse(t_map *map, t_header *header);
 // Utils
 int			ft_isspace(char c);
 void		ft_split_free(char **temp);
-char		*ft_path_maker(char *line, t_header *init);
+char		*ft_path_maker(char *line, t_header *init, t_map *map);
 int			ft_atol(const char *nptr);
-void		*ft_grid_maker(size_t count, size_t size, t_map *init_map);
-char		*ft_combining(char *line, char *whole, t_map *map);
-void		raw_map_filler(char *line, t_map *init_map, int fd);
+void		*ft_grid_maker(size_t count, size_t size, t_map *init_map,
+				t_header *header);
+char		*ft_combining(char *line, char *whole, t_map *map,
+				t_header *header);
+void		raw_map_filler(char *line, t_map *init_map, int fd,
+				t_header *header);
 
 // Flood Fill
 void		fill_space(char **cpy_map, int x, int y, t_map *map);
 void		flood_fill_for_space(char **cpy_map, t_map *map);
-char		**make_copy(t_map *map);
-void		copy_mapcontrol_space(t_map *map, char **cpy_map);
+char		**make_copy(t_map *map, t_header *header);
+void		copy_mapcontrol_space(t_map *map, char **cpy_map, t_header *header);
 void		free_cpymap(char **cpy_map);
-// Exit
-void		error_exit_header(char *error_message, t_header *init);
-void		error_map_exit(char *error_message, t_map *init_map);
+
+// ==================== exit_1.c ====================
+void		error_map_exit(t_map *init_map);
+void		error_exit_header(t_header *init);
+void		cleanup_all(t_header *header, t_map *map);
+void		free_2d_array(char **array);
+void		error_exit_all(char *msg, t_header *header, t_map *map);
 
 #endif

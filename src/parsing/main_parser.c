@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:15:14 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 00:01:38 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/06 01:08:59 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	main_parser(char *header, t_header *init, t_map *map)
 
 	fd = open(header, O_RDONLY);
 	if (fd == -1)
-		return (printf("Error\nInvalid file name!\n"), exit(1));
+		error_exit_all("Invalid file name!", init, map);
 	header_parse(fd, init, map);
-	map_parse(map);
+	map_parse(map, init);
 }

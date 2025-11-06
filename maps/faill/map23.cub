@@ -1,0 +1,13 @@
+NO ./a.xpm
+SO ./b.xpm
+WE ./c.xpm
+EA ./d.xpm
+F 0,128,255
+C 255,0,128
+
+1111
+1N01
+1001
+1111
+
+NO ./another.xpm

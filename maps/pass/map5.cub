@@ -1,0 +1,11 @@
+NO ./textures/n.xpm
+SO /abs/path/s.xpm
+WE ../w.xpm
+EA ./e.xpm
+F  0 , 128 , 255
+C 255, 0,   128
+
+
+111
+1N1
+111

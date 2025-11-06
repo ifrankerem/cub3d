@@ -1,0 +1,11 @@
+NO ./n.xpm
+SO ./s.xpm
+
+1111
+1N01
+1111
+
+WE ./w.xpm
+EA ./e.xpm
+F 0,0,0
+C 10,10,10

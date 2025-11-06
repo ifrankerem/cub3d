@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 02:38:50 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/06 02:35:40 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ void	ft_split_free(char **temp)
 	free(temp);
 }
 
-char	*ft_path_maker(char *line, t_header *init)
+char	*ft_path_maker(char *line, t_header *init, t_map *map)
 {
 	char	*ptr;
 	char	*start;
 	char	*end;
 	char	*path;
 
+	init->flag++;
 	ptr = line;
 	while (ft_isspace(*ptr))
 		ptr++;
@@ -57,7 +58,7 @@ char	*ft_path_maker(char *line, t_header *init)
 	while (ft_isspace(*end))
 		end++;
 	if (*end != '\0' && *end != '\n')
-		error_exit_header("Error\nExtra tokens in path line!!\n", init);
+		error_exit_all("Extra tokens in path line!", init, map);
 	path = ft_substr(start, 0, end - start);
 	return (path);
 }
@@ -90,7 +91,8 @@ int	ft_atol(const char *nptr)
 	return (number * sign);
 }
 
-void	*ft_grid_maker(size_t count, size_t size, t_map *init_map)
+void	*ft_grid_maker(size_t count, size_t size, t_map *init_map,
+		t_header *header)
 {
 	void			*x;
 	unsigned char	*str;
@@ -99,7 +101,7 @@ void	*ft_grid_maker(size_t count, size_t size, t_map *init_map)
 	i = 0;
 	x = malloc(count * size);
 	if (x == NULL)
-		error_map_exit("Error\nMalloc Error\n,", init_map);
+		error_exit_all("Malloc Error", header, init_map);
 	str = (unsigned char *)x;
 	while (i < (count * size))
 	{

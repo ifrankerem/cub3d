@@ -6,7 +6,7 @@
 #    By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/04 01:58:37 by iarslan          ###   ########.fr        #
+#    Updated: 2025/11/06 01:26:27 by iarslan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,10 @@ EXIT_DIR    := $(SRC_DIR)/exit
 
 # --- İsimler ---
 NAME        := cub3d
-NAME_DEBUG  := cub3d_debug
 
 # --- Araçlar ---
 CC          := cc
-CFLAGS      := -Wall -Wextra -Werror
+CFLAGS      := -Wall -Wextra -Werror -O0 -g3
 INCS        := -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
 
 # --- Link bayrakları (Linux mlx) ---
@@ -44,7 +43,8 @@ SRC := \
 	$(PARSE_DIR)/parsing_utils2.c \
 	$(EXIT_DIR)/exit_1.c \
 	$(GNL_DIR)/get_next_line.c \
-	$(GNL_DIR)/get_next_line_utils.c
+	$(GNL_DIR)/get_next_line_utils.c \
+	debug/debug.c
 
 # Objeleri kaynaklardan türet (wildcard değil; pattern subst. serbest)
 OBJ := $(SRC:.c=.o)
@@ -58,20 +58,6 @@ $(NAME): $(OBJ)
 	@$(MAKE) -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(OBJ) $(INCS) $(LIBFT_DIR)/libft.a $(MLX_LDFLAGS) -o $(NAME)
 
-# --- Debug: -g ve -DDEBUG ile ayrı ikili ---
-DEBUG_DIR := debug
-EXTRA_DBG_OBJS := $(DEBUG_DIR)/debug.o
-
-debug: CFLAGS += -O0 -g3 -DDEBUG
-debug: $(OBJ) $(EXTRA_DBG_OBJS)
-	@$(MAKE) -C $(LIBFT_DIR) CFLAGS="$(CFLAGS)"
-	@$(MAKE) -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(OBJ) $(EXTRA_DBG_OBJS) $(INCS) $(LIBFT_DIR)/libft.a $(MLX_LDFLAGS) -o $(NAME_DEBUG)
-
-$(DEBUG_DIR)/debug.o: $(DEBUG_DIR)/debug.c
-	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
-
-
 # --- Derleme kuralı (TEK TAB ile başlar) ---
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
@@ -83,8 +69,8 @@ clean:
 
 fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean || true
-	$(RM) $(NAME) $(NAME_DEBUG)
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all debug clean fclean re
+.PHONY: all  clean fclean re

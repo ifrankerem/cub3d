@@ -6,13 +6,13 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 04:08:28 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/06 02:04:09 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	identifier_check(t_header *init, char *line)
+static void	identifier_check(t_header *header, char *line)
 {
 	char	*ptr;
 
@@ -20,22 +20,22 @@ static void	identifier_check(t_header *init, char *line)
 	while (*ptr == ' ' || *ptr == '\t')
 		ptr++;
 	if (!ft_strncmp(ptr, "NO", 2) && ft_isspace(ptr[2]))
-		init->type = NO;
+		header->type = NO;
 	else if (!ft_strncmp(ptr, "SO", 2) && ft_isspace(ptr[2]))
-		init->type = SO;
+		header->type = SO;
 	else if (!ft_strncmp(ptr, "WE", 2) && ft_isspace(ptr[2]))
-		init->type = WE;
+		header->type = WE;
 	else if (!ft_strncmp(ptr, "EA", 2) && ft_isspace(ptr[2]))
-		init->type = EA;
+		header->type = EA;
 	else if (!ft_strncmp(ptr, "F", 1) && ft_isspace(ptr[1]))
-		init->type = F;
+		header->type = F;
 	else if (!ft_strncmp(ptr, "C", 1) && ft_isspace(ptr[1]))
-		init->type = C;
+		header->type = C;
 	else
-		init->type = ERROR;
+		header->type = ERROR;
 }
 
-static void	f_c_load(t_header *init, char *ptr)
+static void	f_c_load(t_header *header, t_map *map, char *ptr)
 {
 	int		i;
 	char	**temp;
@@ -44,38 +44,40 @@ static void	f_c_load(t_header *init, char *ptr)
 	i = 0;
 	temp = ft_split(ptr, ',');
 	if (!temp || !temp[0] || !temp[1] || !temp[2] || temp[3])
-		error_exit_header("Error\nInvalid RGB format\n", init);
+	{
+		free_2d_array(temp);
+		error_exit_all("Invalid RGB format", header, map);
+	}
 	while (i < 3)
 	{
 		trim = ft_strtrim(temp[i], " \t\n");
 		if (!trim || !*trim)
-			error_exit_header("Error\nEmpty RGB value\n", init);
-		if (init->type == F)
-			init->f_rgb[i] = ft_atol(trim);
+			error_exit_all("Empty RGB value", header, map);
+		if (header->type == F)
+			header->f_rgb[i] = ft_atol(trim);
 		else
-			init->c_rgb[i] = ft_atol(trim);
+			header->c_rgb[i] = ft_atol(trim);
 		free(trim);
-		if (((init->type == F) && (init->f_rgb[i] == -1)) || ((init->type == C)
-				&& (init->c_rgb[i] == -1)))
-			error_exit_header("Error\nInvalid RGB\n", init);
+		if (((header->type == F) && (header->f_rgb[i] == -1))
+			|| ((header->type == C) && (header->c_rgb[i] == -1)))
+			error_exit_all("Invalid RGB", header, map);
 		i++;
 	}
-	ft_split_free(temp);
-	init->flag++;
+	free_2d_array(temp);
 }
 
-static void	identifier_load(t_header *init, char *line)
+static void	identifier_load(t_header *header, t_map *map, char *line)
 {
-	if (init->type == NO)
-		init->no_path = ft_path_maker(line, init);
-	else if (init->type == SO)
-		init->so_path = ft_path_maker(line, init);
-	else if (init->type == WE)
-		init->we_path = ft_path_maker(line, init);
-	else if (init->type == EA)
-		init->ea_path = ft_path_maker(line, init);
-	else if (init->type == F || init->type == C)
-		f_c_load(init, ft_path_maker(line, init));
+	if (header->type == NO)
+		header->no_path = ft_path_maker(line, header, map);
+	else if (header->type == SO)
+		header->so_path = ft_path_maker(line, header, map);
+	else if (header->type == WE)
+		header->we_path = ft_path_maker(line, header, map);
+	else if (header->type == EA)
+		header->ea_path = ft_path_maker(line, header, map);
+	else if (header->type == F || header->type == C)
+		f_c_load(header, map, ft_path_maker(line, header, map));
 }
 
 static int	is_map_started(char *line)
@@ -93,30 +95,30 @@ static int	is_map_started(char *line)
 	return (0);
 }
 
-void	header_parse(int fd, t_header *init, t_map *init_map)
+void	header_parse(int fd, t_header *header, t_map *map)
 {
 	char	*line;
 
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		if ((is_map_started(line) == 1) && (init->ea_path && init->we_path
-				&& init->so_path && init->no_path && (init->flag == 2)))
+		if ((is_map_started(line) == 1) && (header->ea_path && header->we_path
+				&& header->so_path && header->no_path && (header->flag == 6)))
 		{
-			raw_map_filler(line, init_map, fd);
+			raw_map_filler(line, map, fd, header);
 			break ;
 		}
 		else if (line[0] == '\n')
 			continue ;
 		else
 		{
-			identifier_check(init, line);
-			if (init->type == ERROR)
+			identifier_check(header, line);
+			if (header->type == ERROR)
 			{
 				free(line);
-				error_exit_header("Error\nPlease enter identifiers correctly!!\n",
-					init);
+				error_exit_all("Please enter identifiers correctly!", header,
+					map);
 			}
-			identifier_load(init, line);
+			identifier_load(header, map, line);
 		}
 		free(line);
 	}

@@ -6,13 +6,13 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 00:57:00 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/04 04:33:11 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/06 01:27:02 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug(const t_map *m, const t_header *h)
+void	debug(t_map *m, t_header *h)
 {
 	int	y;
 
