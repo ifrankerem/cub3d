@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/06 02:53:04 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/07 01:40:07 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	make_grid(t_map *map, t_header *header)
 			max_x = len;
 		column++;
 	}
-	map->grid = malloc(sizeof(char *) * (column + 3)); //for null
+	map->grid = malloc(sizeof(char *) * (column + 3)); // for null
 	if (!map->grid)
 		error_exit_all("Malloc Error", header, map);
 	while (++y < column + 2)
@@ -135,6 +135,8 @@ static void	info(t_map *map, t_header *header)
 				map->orientation = E;
 		}
 	}
+	map->player_x = j;
+	map->player_y = i;
 	make_grid(map, header);
 }
 

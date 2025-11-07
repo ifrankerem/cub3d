@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 03:12:48 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/06 02:35:10 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/07 01:15:14 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ char	**make_copy(t_map *map, t_header *header)
 	int		y;
 
 	y = 0;
-	cpy_map = (char **)malloc(sizeof(char *) * (map->width + 1));
+	cpy_map = (char **)malloc(sizeof(char *) * (map->height + 1));
 	if (!cpy_map)
 		error_exit_all("Malloc Error!", header, map);
 	while (map->grid[y])
 	{
 		x = 0;
-		cpy_map[y] = (char *)malloc(sizeof(char) * (map->height) + 1);
+		cpy_map[y] = (char *)malloc(sizeof(char) * (map->width) + 1);
 		if (!(cpy_map[y]))
 			error_exit_all("Malloc Error!", header, map);
 		while (map->grid[y][x])

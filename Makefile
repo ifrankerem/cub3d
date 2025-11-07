@@ -6,7 +6,7 @@
 #    By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/06 01:26:27 by iarslan          ###   ########.fr        #
+#    Updated: 2025/11/07 02:00:48 by iarslan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@
 SRC_DIR     := src
 INC_DIR     := include
 LIBFT_DIR   := libft
-MLX_DIR     := minilibx-linux
+MINILIBX_DIR := minilibx-linux
 GNL_DIR     := get_next_line
 PARSE_DIR   := $(SRC_DIR)/parsing
 EXIT_DIR    := $(SRC_DIR)/exit
+MLX_SRC_DIR := $(SRC_DIR)/mlx
 
 # --- İsimler ---
 NAME        := cub3d
@@ -25,10 +26,10 @@ NAME        := cub3d
 # --- Araçlar ---
 CC          := cc
 CFLAGS      := -Wall -Wextra -Werror -O0 -g3
-INCS        := -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
+INCS        := -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MINILIBX_DIR)
 
 # --- Link bayrakları (Linux mlx) ---
-MLX_LDFLAGS := -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+MLX_LDFLAGS := -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 LIBFT_LDFLAGS := -L$(LIBFT_DIR) -lft
 
 # --- Kaynaklar (wildcard YOK; tek tek yazıldı) ---
@@ -44,7 +45,10 @@ SRC := \
 	$(EXIT_DIR)/exit_1.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
-	debug/debug.c
+	debug/debug.c \
+	$(MLX_SRC_DIR)/mlx.c \
+	$(SRC_DIR)/init.c
+	
 
 # Objeleri kaynaklardan türet (wildcard değil; pattern subst. serbest)
 OBJ := $(SRC:.c=.o)
@@ -55,7 +59,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C $(LIBFT_DIR)
-	@$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) -C $(MINILIBX_DIR)
 	$(CC) $(CFLAGS) $(OBJ) $(INCS) $(LIBFT_DIR)/libft.a $(MLX_LDFLAGS) -o $(NAME)
 
 # --- Derleme kuralı (TEK TAB ile başlar) ---
@@ -64,7 +68,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@$(MAKE) -C $(MLX_DIR) clean || true
+	@$(MAKE) -C $(MINILIBX_DIR) clean || true
 	$(RM) $(OBJ)
 
 fclean: clean
