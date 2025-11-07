@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/07 04:33:46 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/08 01:46:54 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define WIN_W 1920
 # define WIN_H 1080
 
-#define SPEED 5
 enum			TYPE
 {
 	NO,
@@ -67,6 +66,27 @@ typedef struct s_header
 
 }				t_header;
 
+// for 2D DEBUG AND LEARNING
+
+typedef struct s_img
+{
+	void *img;    // MLX image pointer (handle)
+	char *addr;   // bellekteki piksel adresi
+	int bpp;      // bits per pixel
+	int line_len; // bir satırın byte uzunluğu
+	int endian;   // sistem endian tipi
+}				t_img;
+
+typedef struct s_player
+{
+	int			x;
+	int			y;
+	double dirX;   // oyuncunun baktığı yön
+	double dirY;   // oyuncunun baktığı yön
+	double planeX; // FOV
+	double planeY; // FOV
+}				t_player;
+
 typedef struct s_map
 {
 	char		**raw_map;
@@ -74,18 +94,14 @@ typedef struct s_map
 	int			orientation;
 	int			height;
 	int			width;
-	int			player_x;
-	int			player_y;
-	int dirX;   // oyuncunun baktığı yön
-	int dirY;   // oyuncunun baktığı yön
-	int planeX; // FOV
-	int planeY; // FOV
+	t_player	player;
 }				t_map;
 
 typedef struct s_mlx
 {
 	void		*win;
 	void		*ptr;
+	t_img		img;
 	t_map		*map;
 	t_header	*header;
 
@@ -103,6 +119,7 @@ void			map_parse(t_map *map, t_header *header);
 t_header		*init_header(void);
 t_map			*init_map(void);
 t_mlx			*ft_mlx_init(t_map *map, t_header *header);
+void			player_init(t_map *map);
 
 // Utils
 int				ft_isspace(char c);
@@ -128,6 +145,16 @@ void			free_cpymap(char **cpy_map);
 void			open_window(t_mlx *mlx, t_map *map, t_header *header);
 int				close_window(t_mlx *mlx);
 int				movement_and_exit(int keysym, t_mlx *mlx);
+void			player_move(t_player *player, int key);
+
+// 2D Rendering
+void			ft_2d_init(t_mlx *mlx);
+void			put_pixel(t_img *img, int x, int y, int color);
+void			draw_square(t_img *img, int x, int y, int size, int color);
+void			draw_map(t_mlx *mlx, int tile_size);
+void			draw_player(t_mlx *mlx, int tile_size);
+int				draw_loop(t_mlx *mlx);
+
 // void		close_window(void);
 //
 void			error_map_exit(t_map *init_map);

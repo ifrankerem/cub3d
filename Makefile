@@ -19,6 +19,7 @@ GNL_DIR     := get_next_line
 PARSE_DIR   := $(SRC_DIR)/parsing
 EXIT_DIR    := $(SRC_DIR)/exit
 MLX_SRC_DIR := $(SRC_DIR)/mlx
+RAYCAST_DIR := $(SRC_DIR)/raycast/2D
 
 # --- İsimler ---
 NAME        := cub3d
@@ -47,6 +48,7 @@ SRC := \
 	$(GNL_DIR)/get_next_line_utils.c \
 	debug/debug.c \
 	$(MLX_SRC_DIR)/mlx.c \
+	$(RAYCAST_DIR)/2d.c \
 	$(SRC_DIR)/init.c
 	
 

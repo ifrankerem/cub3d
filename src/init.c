@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:35:12 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/07 01:53:49 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/08 01:32:53 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ t_header	*init_header(void)
 	header->f_rgb[0] = -1;
 	header->f_rgb[1] = -1;
 	header->f_rgb[2] = -1;
-	header->ea_path = NULL;
-	header->no_path = NULL;
-	header->so_path = NULL;
-	header->we_path = NULL;
 	header->type = -1;
 	return (header);
 }
@@ -60,13 +56,9 @@ t_map	*init_map(void)
 		return (NULL);
 	}
 	ft_bzero(map, sizeof(*map));
-	map->grid = NULL;
-	map->height = 0;
 	map->orientation = -1;
-	map->player_x = -1;
-	map->player_y = -1;
-	map->raw_map = NULL;
-	map->width = 0;
+	map->player.x = -1;
+	map->player.y = -1;
 	return (map);
 }
 
@@ -84,4 +76,28 @@ t_mlx	*ft_mlx_init(t_map *map, t_header *header)
 	mlx->map = map;
 	mlx->header = header;
 	return (mlx);
+}
+
+void	player_init(t_map *map)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (map->grid[y])
+	{
+		x = 0;
+		while (map->grid[y][x])
+		{
+			if (map->grid[y][x] == 'N' || map->grid[y][x] == 'S'
+				|| map->grid[y][x] == 'E' || map->grid[y][x] == 'W')
+			{
+				map->player.x = x;
+				map->player.y = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
 }
