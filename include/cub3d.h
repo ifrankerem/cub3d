@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/07 02:50:37 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/07 04:33:46 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define WIN_W 1920
 # define WIN_H 1080
 
+#define SPEED 5
 enum			TYPE
 {
 	NO,
@@ -39,10 +40,18 @@ enum			TYPE
 
 enum			ORIENTATION
 {
-	N = 2,
+	N,
 	S,
 	W,
 	E,
+};
+
+enum			KEY
+{
+	UP,
+	DOWN,
+	RIGHT,
+	LEFT,
 };
 
 typedef struct s_header
