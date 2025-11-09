@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 03:12:48 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/07 01:15:14 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/09 20:20:31 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**make_copy(t_map *map, t_header *header)
 		cpy_map[y][x] = '\0';
 		y++;
 	}
-	cpy_map[y] = '\0';
+	cpy_map[y] = NULL;
 	return (cpy_map);
 }
 
