@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 01:46:54 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/09 21:03:47 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define WIN_W 1920
-# define WIN_H 1080
+# define WIN_W 1280
+# define WIN_H 720
 
 enum			TYPE
 {

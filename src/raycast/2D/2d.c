@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:02:17 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 01:44:48 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/09 21:16:40 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	draw_player(t_mlx *mlx, int tile_size)
 	draw_square(&mlx->img, mlx->map->player.x * tile_size, mlx->map->player.y
 		* tile_size, tile_size, 0x06a54b);
 }
+
+
 
 int	draw_loop(t_mlx *mlx)
 {

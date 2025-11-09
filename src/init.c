@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:35:12 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 01:32:53 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/09 21:25:09 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,32 @@ void	player_init(t_map *map)
 		}
 		y++;
 	}
+	map->player.planeX = 0;
+	map->player.planeY = 0.66; //|dir| = 1 oldugundan dolayı |plane| = tan(fov/2)
+	ft_set_orientation(map);
+}
+
+static void	ft_set_orientation(t_map *map)
+{
+	if (map->orientation == E)
+	{
+		map->player.dirX = 1;
+		map->player.dirY = 0;
+	}
+	if (map->orientation == N)
+	{
+		map->player.dirX = 0;
+		map->player.dirY = 1;
+	}
+	if (map->orientation == W)
+	{
+		map->player.dirX = -1;
+		map->player.dirY = 0;
+	}
+	if (map->orientation == S)
+	{
+		map->player.dirX = 0;
+		map->player.dirY = -1;
+	}
+	//galiba yanlıs
 }
