@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 17:30:00 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/10 17:55:00 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/10 18:09:38 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,24 @@ static void	rotate_player(t_player *player, double angle)
 	player->planeY = old_plane_x * sin(angle) + player->planeY * cos(angle);
 }
 
-static void	move_player(t_mlx *mlx, double move_x, double move_y)
+static void	move_player(t_mlx *mlx, int key)
 {
-	int		new_x;
-	int		new_y;
 	t_map	*map;
 
 	map = mlx->map;
 
-	//if (map->grid[new_y][(int)map->player.x] != '1')
-		map->player.y += 1;
-	//if (map->grid[(int)map->player.y][new_x] != '1')
-		map->player.x += move_x;
+	if (key == UP)
+		map->player.y -= 1;
+	if (key == DOWN)
+		map->player.x += 1;
 }
 
 int	update_game(t_mlx *mlx)
 {
-	if (mlx->keys.w || mlx->keys.up)
-		move_player(mlx, mlx->map->player.x * MOVE_SPEED, mlx->map->player.y
-			* MOVE_SPEED);
-	if (mlx->keys.s || mlx->keys.down)
-		move_player(mlx, -mlx->map->player.y * MOVE_SPEED, -mlx->map->player.y
-			* MOVE_SPEED);
+	if (mlx->keys.w)
+		move_player(mlx,UP);
+	if (mlx->keys.s)
+		move_player(mlx, DOWN);
 	if (mlx->keys.left || mlx->keys.a)
 		rotate_player(&mlx->map->player, ROT_SPEED);
 	if (mlx->keys.right || mlx->keys.d)
