@@ -6,7 +6,7 @@
 #    By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/07 02:00:48 by iarslan          ###   ########.fr        #
+#    Updated: 2025/11/10 17:35:55 by iarslan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRC := \
 	debug/debug.c \
 	$(MLX_SRC_DIR)/mlx.c \
 	$(RAYCAST_DIR)/2d.c \
-	$(SRC_DIR)/init.c
+	$(SRC_DIR)/init.c \
+	$(MLX_SRC_DIR)/movement.c 
 	
 
 # Objeleri kaynaklardan türet (wildcard değil; pattern subst. serbest)
