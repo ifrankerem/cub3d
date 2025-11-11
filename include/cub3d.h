@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/10 17:52:18 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/12 01:23:21 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define FOV_DEG 66.0
 # define M_PI 3.14159265358979323846
 # define ROT_SPEED 0.05
-# define MOVE_SPEED 0.001
+# define MOVE_SPEED 0.05
 
 enum			TYPE
 {
@@ -83,8 +83,8 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int			x;
-	int			y;
+	double		x;
+	double		y;
 	double dirX;   // oyuncunun baktığı yön
 	double dirY;   // oyuncunun baktığı yön
 	double planeX; // oyuncu plane (aslında kendisi gibi bişi)
@@ -110,8 +110,6 @@ typedef struct s_keys
 	int			a;
 	int			s;
 	int			d;
-	int			left;
-	int			right;
 }				t_keys;
 
 typedef struct s_mlx
@@ -171,7 +169,7 @@ void			ft_2d_init(t_mlx *mlx);
 void			put_pixel(t_img *img, int x, int y, int color);
 void			draw_square(t_img *img, int x, int y, int size, int color);
 void			draw_map(t_mlx *mlx, int tile_size);
-void			draw_player(t_mlx *mlx, int tile_size);
+void			draw_player(t_mlx *mlx, int tile_size, int player_size);
 int				draw_loop(t_mlx *mlx);
 // void		close_window(void);
 //

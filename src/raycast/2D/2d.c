@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:02:17 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/10 17:26:45 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/12 01:17:25 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_square(t_img *img, int x, int y, int size, int color)
 	}
 }
 
-static void	draw_dir(t_player player, t_img *img, int size, int color)
+static void	draw_dir(t_player player, t_img *img, int tile_size, int color)
 {
 	int		start_x;
 	int		start_y;
@@ -58,12 +58,10 @@ static void	draw_dir(t_player player, t_img *img, int size, int color)
 	int		steps;
 	int		i;
 
-	start_x = player.x * size + size / 2;
-	start_y = player.y * size + size / 2;
-	start_x += (int)(player.dirX * size / 2);
-	start_y += (int)(player.dirY * size / 2);
-	end_x = start_x + (int)(player.dirX * size);
-	end_y = start_y + (int)(player.dirY * size);
+	start_x = (int)(player.x * tile_size);
+	start_y = (int)(player.y * tile_size);
+	end_x = start_x + (int)(player.dirX * tile_size);
+	end_y = start_y + (int)(player.dirY * tile_size);
 	dx = end_x - start_x;
 	dy = end_y - start_y;
 	steps = (int)fmax(fabs(dx), fabs(dy));
@@ -102,22 +100,28 @@ void	draw_map(t_mlx *mlx, int tile_size)
 	}
 }
 
-void	draw_player(t_mlx *mlx, int tile_size)
+void	draw_player(t_mlx *mlx, int tile_size, int player_size)
 {
-	draw_square(&mlx->img, mlx->map->player.x * tile_size, mlx->map->player.y
-		* tile_size, tile_size, 0x06a54b);
+	int	px;
+	int	py;
+
+	px = (int)(mlx->map->player.x * tile_size) - player_size / 2;
+	py = (int)(mlx->map->player.y * tile_size) - player_size / 2;
+	draw_square(&mlx->img, px, py, player_size, 0x06a54b);
 	draw_dir(mlx->map->player, &mlx->img, tile_size, 0x06a54b);
 }
 
 int	draw_loop(t_mlx *mlx)
 {
 	int	tile_size;
+	int	player_size;
 
 	tile_size = 64;
+	player_size = 8;
 	update_game(mlx);
 	mlx_clear_window(mlx->ptr, mlx->win);
 	draw_map(mlx, tile_size);
-	draw_player(mlx, tile_size);
+	draw_player(mlx, tile_size, player_size);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.img, 0, 0);
 	return (0);
 }

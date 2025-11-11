@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:35:12 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/10 17:26:45 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/12 01:17:12 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ t_mlx	*ft_mlx_init(t_map *map, t_header *header)
 	mlx->keys.a = 0;
 	mlx->keys.s = 0;
 	mlx->keys.d = 0;
-	mlx->keys.left = 0;
-	mlx->keys.right = 0;
 	return (mlx);
 }
 
@@ -149,8 +147,8 @@ void	player_init(t_map *map)
 			if (map->grid[y][x] == 'N' || map->grid[y][x] == 'S'
 				|| map->grid[y][x] == 'E' || map->grid[y][x] == 'W')
 			{
-				map->player.x = x;
-				map->player.y = y;
+				map->player.x = x + 0.5;
+				map->player.y = y + 0.5;
 				ft_set_orientation(map);
 				ft_set_plane(map);
 				return ;

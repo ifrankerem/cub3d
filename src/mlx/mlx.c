@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:24:37 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/10 17:37:30 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/12 01:20:39 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,57 +21,10 @@ void	open_window(t_mlx *mlx, t_map *map, t_header *header)
 	if (!mlx->win)
 		return (mlx_destroy_display(mlx->ptr), free(mlx->ptr),
 			error_exit_all("MLX error!", header, map));
+	printf("%f", mlx->map->player.x);
+	printf("%f", mlx->map->player.x);
 	ft_2d_init(mlx); // for2d
 }
-
-// void	player_move(t_player *player, int key)
-// {
-// 	if (key == UP)
-// 		player->y -= 1;
-// 	if (key == DOWN)
-// 		player->y += 1;
-// 	if (key == RIGHT)
-// 	{
-// 		player->dirX = player->dirX * cos(-ROT_SPEED) - player->dirY
-// 			* sin(-ROT_SPEED);
-// 		player->dirY = player->dirX * cos(-ROT_SPEED) + player->dirY
-// 			* sin(-ROT_SPEED);
-// 		player->planeX = player->planeX * cos(-ROT_SPEED) - player->planeY
-// 			* sin(-ROT_SPEED);
-// 		player->dirY = player->planeX * cos(-ROT_SPEED) + player->planeY
-// 			* sin(-ROT_SPEED);
-// 	}
-// 	if (key == LEFT)
-// 	{
-// 		player->dirX = player->dirX * cos(ROT_SPEED) - player->dirY
-// 			* sin(ROT_SPEED);
-// 		player->dirY = player->dirX * cos(ROT_SPEED) + player->dirY
-// 			* sin(ROT_SPEED);
-// 		player->planeX = player->planeX * cos(ROT_SPEED) - player->planeY
-// 			* sin(ROT_SPEED);
-// 		player->dirY = player->planeX * cos(ROT_SPEED) + player->planeY
-// 			* sin(ROT_SPEED);
-// 	}
-// }
-
-// int	movement_and_exit(int keysym, t_mlx *mlx)
-// {
-// 	if (keysym == XK_Escape)
-// 	{
-// 		printf("Quitting game by pressing ESC\n");
-// 		close_window(mlx);
-// 	}
-// 	if (keysym == XK_Up || keysym == XK_w)
-// 		player_move(&mlx->map->player, UP);
-// 	if (keysym == XK_Left || keysym == XK_a)
-// 		player_move(&mlx->map->player, LEFT);
-// 	if (keysym == XK_Down || keysym == XK_s)
-// 		player_move(&mlx->map->player, DOWN);
-// 	if (keysym == XK_Right || keysym == XK_d)
-// 		player_move(&mlx->map->player, RIGHT);
-// 	draw_loop(mlx);
-// 	return (0);
-// }
 
 int	close_window(t_mlx *mlx)
 {
