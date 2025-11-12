@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:24:37 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/12 01:20:39 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/12 01:30:49 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	open_window(t_mlx *mlx, t_map *map, t_header *header)
 	if (!mlx->win)
 		return (mlx_destroy_display(mlx->ptr), free(mlx->ptr),
 			error_exit_all("MLX error!", header, map));
-	printf("%f", mlx->map->player.x);
-	printf("%f", mlx->map->player.x);
 	ft_2d_init(mlx); // for2d
 }
 

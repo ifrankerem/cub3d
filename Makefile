@@ -6,7 +6,7 @@
 #    By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/10 17:35:55 by iarslan          ###   ########.fr        #
+#    Updated: 2025/11/12 03:25:55 by iarslan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ GNL_DIR     := get_next_line
 PARSE_DIR   := $(SRC_DIR)/parsing
 EXIT_DIR    := $(SRC_DIR)/exit
 MLX_SRC_DIR := $(SRC_DIR)/mlx
-RAYCAST_DIR := $(SRC_DIR)/raycast/2D
+RAYCAST_DIR := $(SRC_DIR)/raycast
 
 # --- İsimler ---
 NAME        := cub3d
@@ -48,9 +48,10 @@ SRC := \
 	$(GNL_DIR)/get_next_line_utils.c \
 	debug/debug.c \
 	$(MLX_SRC_DIR)/mlx.c \
-	$(RAYCAST_DIR)/2d.c \
+	$(RAYCAST_DIR)/2D/2d.c \
 	$(SRC_DIR)/init.c \
-	$(MLX_SRC_DIR)/movement.c 
+	$(MLX_SRC_DIR)/movement.c \
+	$(RAYCAST_DIR)/raycast.c
 	
 
 # Objeleri kaynaklardan türet (wildcard değil; pattern subst. serbest)

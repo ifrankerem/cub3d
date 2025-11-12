@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/12 01:23:21 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/12 05:21:28 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define WIN_W 1280
-# define WIN_H 7203
+# define WIN_W 1920
+# define WIN_H 1080
 # define FOV_DEG 66.0
 # define M_PI 3.14159265358979323846
 # define ROT_SPEED 0.05
@@ -89,8 +89,12 @@ typedef struct s_player
 	double dirY;   // oyuncunun baktığı yön
 	double planeX; // oyuncu plane (aslında kendisi gibi bişi)
 	double planeY; // oyuncu plane (aslında kendisi gibi bişi)
-	double		cameraX;
-	double		cameraY;
+	double		rayDirX;
+	double		rayDirY;
+	double		sideDistX;
+	double		sideDistY;
+	int			wall_hit;
+	int			side;
 
 }				t_player;
 
@@ -171,8 +175,10 @@ void			draw_square(t_img *img, int x, int y, int size, int color);
 void			draw_map(t_mlx *mlx, int tile_size);
 void			draw_player(t_mlx *mlx, int tile_size, int player_size);
 int				draw_loop(t_mlx *mlx);
+// raycast
+void			ft_ray_maker(t_player *player, int x, int screen_width);
+void			ft_dda(t_player *player, t_map *map);
 // void		close_window(void);
-//
 void			error_map_exit(t_map *init_map);
 void			error_exit_header(t_header *init);
 void			cleanup_all(t_header *header, t_map *map);

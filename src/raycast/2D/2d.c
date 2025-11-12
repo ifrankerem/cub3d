@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:02:17 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/12 01:17:25 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/12 05:23:37 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static void	draw_dir(t_player player, t_img *img, int tile_size, int color)
 
 	start_x = (int)(player.x * tile_size);
 	start_y = (int)(player.y * tile_size);
-	end_x = start_x + (int)(player.dirX * tile_size);
-	end_y = start_y + (int)(player.dirY * tile_size);
+	end_x = start_x + (int)(player.sideDistX * tile_size);
+	end_y = start_y + (int)(player.sideDistY * tile_size);
 	dx = end_x - start_x;
 	dy = end_y - start_y;
 	steps = (int)fmax(fabs(dx), fabs(dy));
 	i = 0;
-	while (i <= steps)
+	while (player.wall_hit)
 	{
 		put_pixel(img, start_x + (int)((dx / steps) * i), start_y + (int)((dy
 					/ steps) * i), color);
@@ -88,15 +88,34 @@ void	draw_map(t_mlx *mlx, int tile_size)
 		{
 			if (mlx->map->grid[y][x] == '1')
 				color = 0xff0a0a;
-			else if (mlx->map->grid[y][x] == '0')
-				color = 0xffffff;
-			else
+			else if (mlx->map->grid[y][x] == ' ')
 				color = 0x000000;
+			else
+				color = 0xffffff;
 			draw_square(&mlx->img, x * tile_size, y * tile_size, tile_size,
 				color);
 			x++;
 		}
 		y++;
+	}
+}
+
+static void	draw_fov_rays(t_mlx *mlx, int tile_size)
+{
+	int			x;
+	t_player	ray;
+
+	x = 0;
+	while (x < WIN_W)
+	{
+		ray = mlx->map->player;
+		ft_ray_maker(&ray, x, WIN_W);
+		ft_dda(&ray, mlx->map);
+		printf("%f xxx %f", mlx->map->player.sideDistX,
+			mlx->map->player.sideDistX);
+		draw_dir(ray, &mlx->img, tile_size, 0x00FF00);
+		x += 40;
+		// Her 40 piksel için bir ray çiz (daha az ray = daha performanslı)
 	}
 }
 
@@ -108,7 +127,7 @@ void	draw_player(t_mlx *mlx, int tile_size, int player_size)
 	px = (int)(mlx->map->player.x * tile_size) - player_size / 2;
 	py = (int)(mlx->map->player.y * tile_size) - player_size / 2;
 	draw_square(&mlx->img, px, py, player_size, 0x06a54b);
-	draw_dir(mlx->map->player, &mlx->img, tile_size, 0x06a54b);
+	draw_fov_rays(mlx, tile_size);
 }
 
 int	draw_loop(t_mlx *mlx)
