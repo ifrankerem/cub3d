@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/12 05:21:28 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/13 01:11:27 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,27 @@ typedef struct s_header
 
 // for 2D DEBUG AND LEARNING
 
+typedef struct s_texture
+{
+	void *img;  // MLX image pointer
+	char *addr; // Piksel verisi
+	int width;  // Bu texture'ın genişliği
+	int height; // Bu texture'ın yüksekliği
+	int			bpp;
+	int			line_len;
+	int			endian;
+}				t_texture;
+
+typedef struct s_textures
+{
+	t_texture north;   // Kuzey texture'ı (tüm bilgisiyle)
+	t_texture south;   // Güney texture'ı (tüm bilgisiyle)
+	t_texture west;    // Batı texture'ı (tüm bilgisiyle)
+	t_texture east;    // Doğu texture'ı (tüm bilgisiyle)
+	int floor_color;   // RGB format: 0xRRGGBB
+	int ceiling_color; // RGB format: 0xRRGGBB
+}				t_textures;
+
 typedef struct s_img
 {
 	void *img;    // MLX image pointer (handle)
@@ -93,6 +114,12 @@ typedef struct s_player
 	double		rayDirY;
 	double		sideDistX;
 	double		sideDistY;
+	double		deltaDistX;
+	double		deltaDistY;
+	double		perpWallDist;
+	int			line_height;
+	int			drawStart;
+	int			drawEnd;
 	int			wall_hit;
 	int			side;
 
@@ -106,6 +133,7 @@ typedef struct s_map
 	int			height;
 	int			width;
 	t_player	player;
+	t_texture	textures;
 }				t_map;
 
 typedef struct s_keys
@@ -178,6 +206,8 @@ int				draw_loop(t_mlx *mlx);
 // raycast
 void			ft_ray_maker(t_player *player, int x, int screen_width);
 void			ft_dda(t_player *player, t_map *map);
+void			ft_wall_dist(t_player *player);
+
 // void		close_window(void);
 void			error_map_exit(t_map *init_map);
 void			error_exit_header(t_header *init);

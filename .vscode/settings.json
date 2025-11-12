@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"cstdlib": "c"
+		"*.rmd": "markdown",
+		"cstdlib": "c",
+		"cub3d.h": "c"
 	}
 }

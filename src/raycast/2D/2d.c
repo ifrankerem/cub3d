@@ -6,13 +6,13 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:02:17 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/12 05:23:37 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/13 02:08:49 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_pixel(t_img *img, int x, int y, int color)
+void	put_pixel(t_texture *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -60,13 +60,13 @@ static void	draw_dir(t_player player, t_img *img, int tile_size, int color)
 
 	start_x = (int)(player.x * tile_size);
 	start_y = (int)(player.y * tile_size);
-	end_x = start_x + (int)(player.sideDistX * tile_size);
-	end_y = start_y + (int)(player.sideDistY * tile_size);
+	end_x = start_x + (int)(player.rayDirX * player.perpWallDist * tile_size);
+	end_y = start_y + (int)(player.rayDirY * player.perpWallDist * tile_size);
 	dx = end_x - start_x;
 	dy = end_y - start_y;
 	steps = (int)fmax(fabs(dx), fabs(dy));
 	i = 0;
-	while (player.wall_hit)
+	while (i <= steps)
 	{
 		put_pixel(img, start_x + (int)((dx / steps) * i), start_y + (int)((dy
 					/ steps) * i), color);
@@ -111,8 +111,7 @@ static void	draw_fov_rays(t_mlx *mlx, int tile_size)
 		ray = mlx->map->player;
 		ft_ray_maker(&ray, x, WIN_W);
 		ft_dda(&ray, mlx->map);
-		printf("%f xxx %f", mlx->map->player.sideDistX,
-			mlx->map->player.sideDistX);
+		ft_wall_dist(&ray);
 		draw_dir(ray, &mlx->img, tile_size, 0x00FF00);
 		x += 40;
 		// Her 40 piksel için bir ray çiz (daha az ray = daha performanslı)

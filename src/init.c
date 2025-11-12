@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:35:12 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/12 01:17:12 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/13 01:16:44 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,15 @@ static void	ft_set_plane(t_map *map)
 	}
 }
 
+static void	player_init_2(t_player *player)
+{
+	player->perpWallDist = 0;
+	player->sideDistX = 0;
+	player->sideDistY = 0;
+	player->wall_hit = 0;
+	player->deltaDistX = fabs(1 / player->rayDirX);
+	player->deltaDistY = fabs(1 / player->rayDirY);
+}
 void	player_init(t_map *map)
 {
 	int	y;
@@ -157,4 +166,29 @@ void	player_init(t_map *map)
 		}
 		y++;
 	}
+	player_init_2(&map->player);
+}
+
+void	ft_texture_init(t_mlx *mlx, t_textures *tex)
+{
+	// north
+	tex->north.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->no_path,
+			&tex->north.width, &tex->north.height);
+	tex->north.addr = mlx_get_data_addr(tex->north.img, &tex->north.bpp,
+			&tex->north.line_len, &tex->north.endian);
+	// south
+	tex->south.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->so_path,
+			&tex->south.width, &tex->south.height);
+	tex->south.addr = mlx_get_data_addr(tex->south.img, &tex->south.bpp,
+			&tex->south.line_len, &tex->south.endian);
+	// east
+	tex->east.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->ea_path,
+			&tex->east.width, &tex->east.height);
+	tex->east.addr = mlx_get_data_addr(tex->east.img, &tex->east.bpp,
+			&tex->east.line_len, &tex->east.endian);
+	// west
+	tex->west.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->we_path,
+			&tex->west.width, &tex->west.height);
+	tex->west.addr = mlx_get_data_addr(tex->west.img, &tex->west.bpp,
+			&tex->west.line_len, &tex->west.endian);
 }
