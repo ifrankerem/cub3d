@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:02:17 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/13 02:08:49 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/13 23:37:05 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,9 @@ int	draw_loop(t_mlx *mlx)
 	player_size = 8;
 	update_game(mlx);
 	mlx_clear_window(mlx->ptr, mlx->win);
-	draw_map(mlx, tile_size);
-	draw_player(mlx, tile_size, player_size);
+	// draw_map(mlx, tile_size);
+	// draw_player(mlx, tile_size, player_size);
+	ft_3d(mlx,)
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.img, 0, 0);
 	return (0);
 }

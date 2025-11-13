@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/13 01:11:27 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/13 23:38:18 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct s_mlx
 	t_map		*map;
 	t_header	*header;
 	t_keys		keys;
+	t_textures	*tex;
 
 }				t_mlx;
 
