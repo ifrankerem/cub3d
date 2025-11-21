@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/10 17:45:02 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/21 15:21:57 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 	t_header	*header;
 	t_map		*map;
 	t_mlx		*mlx;
+	t_textures	tex;
 
 	if (argc != 2)
 		return (ft_putendl_fd("Error\nInvalid Program Use!", 2), 1);
@@ -24,7 +25,8 @@ int	main(int argc, char **argv)
 	map = init_map();
 	main_parser(argv[1], header, map);
 	player_init(map);
-	mlx = ft_mlx_init(map, header);
+	mlx = ft_mlx_init(map, header, &tex);
+	//ft_texture_init(mlx, &tex);
 	open_window(mlx, map, header);
 	mlx_loop_hook(mlx->ptr, draw_loop, mlx);
 	mlx_hook(mlx->win, 2, 1L << 0, key_press, mlx);

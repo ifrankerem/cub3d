@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:35:12 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/13 01:16:44 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/21 15:22:00 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,31 @@ t_map	*init_map(void)
 	return (map);
 }
 
-t_mlx	*ft_mlx_init(t_map *map, t_header *header)
+void	ft_texture_init(t_mlx *mlx, t_textures *tex)
+{
+	// north
+	tex->north.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->no_path,
+			&tex->north.width, &tex->north.height);
+	tex->north.addr = mlx_get_data_addr(tex->north.img, &tex->north.bpp,
+			&tex->north.line_len, &tex->north.endian);
+	// south
+	tex->south.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->so_path,
+			&tex->south.width, &tex->south.height);
+	tex->south.addr = mlx_get_data_addr(tex->south.img, &tex->south.bpp,
+			&tex->south.line_len, &tex->south.endian);
+	// east
+	tex->east.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->ea_path,
+			&tex->east.width, &tex->east.height);
+	tex->east.addr = mlx_get_data_addr(tex->east.img, &tex->east.bpp,
+			&tex->east.line_len, &tex->east.endian);
+	// west
+	tex->west.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->we_path,
+			&tex->west.width, &tex->west.height);
+	tex->west.addr = mlx_get_data_addr(tex->west.img, &tex->west.bpp,
+			&tex->west.line_len, &tex->west.endian);
+}
+
+t_mlx	*ft_mlx_init(t_map *map, t_header *header, t_textures *tex)
 {
 	t_mlx	*mlx;
 
@@ -75,6 +99,8 @@ t_mlx	*ft_mlx_init(t_map *map, t_header *header)
 	ft_bzero(mlx, sizeof(*mlx));
 	mlx->map = map;
 	mlx->header = header;
+	mlx->tex = tex;
+	mlx->ptr = mlx_init();
 	mlx->keys.w = 0;
 	mlx->keys.a = 0;
 	mlx->keys.s = 0;
@@ -167,28 +193,4 @@ void	player_init(t_map *map)
 		y++;
 	}
 	player_init_2(&map->player);
-}
-
-void	ft_texture_init(t_mlx *mlx, t_textures *tex)
-{
-	// north
-	tex->north.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->no_path,
-			&tex->north.width, &tex->north.height);
-	tex->north.addr = mlx_get_data_addr(tex->north.img, &tex->north.bpp,
-			&tex->north.line_len, &tex->north.endian);
-	// south
-	tex->south.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->so_path,
-			&tex->south.width, &tex->south.height);
-	tex->south.addr = mlx_get_data_addr(tex->south.img, &tex->south.bpp,
-			&tex->south.line_len, &tex->south.endian);
-	// east
-	tex->east.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->ea_path,
-			&tex->east.width, &tex->east.height);
-	tex->east.addr = mlx_get_data_addr(tex->east.img, &tex->east.bpp,
-			&tex->east.line_len, &tex->east.endian);
-	// west
-	tex->west.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->we_path,
-			&tex->west.width, &tex->west.height);
-	tex->west.addr = mlx_get_data_addr(tex->west.img, &tex->west.bpp,
-			&tex->west.line_len, &tex->west.endian);
 }

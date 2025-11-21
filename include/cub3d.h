@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/13 23:38:18 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/16 01:03:14 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,9 @@ void			map_parse(t_map *map, t_header *header);
 
 t_header		*init_header(void);
 t_map			*init_map(void);
-t_mlx			*ft_mlx_init(t_map *map, t_header *header);
+t_mlx			*ft_mlx_init(t_map *map, t_header *header, t_textures *tex);
 void			player_init(t_map *map);
-
+void			ft_texture_init(t_mlx *mlx, t_textures *tex);
 // Utils
 int				ft_isspace(char c);
 void			ft_split_free(char **temp);
@@ -208,6 +208,7 @@ int				draw_loop(t_mlx *mlx);
 void			ft_ray_maker(t_player *player, int x, int screen_width);
 void			ft_dda(t_player *player, t_map *map);
 void			ft_wall_dist(t_player *player);
+void			ft_3d(t_mlx *mlx, t_textures *tex, t_header *header);
 
 // void		close_window(void);
 void			error_map_exit(t_map *init_map);

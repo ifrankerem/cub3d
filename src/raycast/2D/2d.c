@@ -6,13 +6,13 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:02:17 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/13 23:37:05 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/21 15:19:38 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_pixel(t_texture *img, int x, int y, int color)
+void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -109,6 +109,7 @@ static void	draw_fov_rays(t_mlx *mlx, int tile_size)
 	while (x < WIN_W)
 	{
 		ray = mlx->map->player;
+		ray.wall_hit = 0;
 		ft_ray_maker(&ray, x, WIN_W);
 		ft_dda(&ray, mlx->map);
 		ft_wall_dist(&ray);
@@ -133,14 +134,14 @@ int	draw_loop(t_mlx *mlx)
 {
 	int	tile_size;
 	int	player_size;
-
 	tile_size = 64;
 	player_size = 8;
 	update_game(mlx);
+	//ft_memset(mlx->img.addr, 0, WIN_H * WIN_W * (mlx->img.bpp / 8));
 	mlx_clear_window(mlx->ptr, mlx->win);
-	// draw_map(mlx, tile_size);
-	// draw_player(mlx, tile_size, player_size);
-	ft_3d(mlx,)
+	draw_map(mlx, tile_size);
+	draw_player(mlx, tile_size, player_size);
+	//ft_3d(mlx, mlx->header, mlx->tex);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.img, 0, 0);
 	return (0);
 }
