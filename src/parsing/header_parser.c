@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/06 02:04:09 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/24 22:21:54 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ static void	identifier_check(t_header *header, char *line)
 	else if (!ft_strncmp(ptr, "C", 1) && ft_isspace(ptr[1]))
 		header->type = C;
 	else
+	{
 		header->type = ERROR;
+	}
 }
 
 static void	f_c_load(t_header *header, t_map *map, char *ptr)
@@ -69,46 +71,75 @@ static void	f_c_load(t_header *header, t_map *map, char *ptr)
 static void	identifier_load(t_header *header, t_map *map, char *line)
 {
 	if (header->type == NO)
+	{
 		header->no_path = ft_path_maker(line, header, map);
+	}
 	else if (header->type == SO)
+	{
 		header->so_path = ft_path_maker(line, header, map);
+	}
 	else if (header->type == WE)
+	{
 		header->we_path = ft_path_maker(line, header, map);
+	}
 	else if (header->type == EA)
+	{
 		header->ea_path = ft_path_maker(line, header, map);
+	}
 	else if (header->type == F || header->type == C)
+	{
 		f_c_load(header, map, ft_path_maker(line, header, map));
+	}
+	is_xpm_valid(map, header, header->type);
 }
 
 static int	is_map_started(char *line)
 {
 	int	i;
+	int verify_map;
 
+	verify_map = 1;
 	i = 0;
 	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S'
-			|| line[i] == 'E' || line[i] == 'W')
-			return (1);
+		if (!(line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W' || line[i] == ' '))
+			verify_map = 0;;
 		i++;
 	}
-	return (0);
+	return (verify_map);
 }
 
 void	header_parse(int fd, t_header *header, t_map *map)
 {
 	char	*line;
 
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	if(!line)
+		error_exit_all("Empty Map!", header, map);
+	while (line)
 	{
-		if ((is_map_started(line) == 1) && (header->ea_path && header->we_path
-				&& header->so_path && header->no_path && (header->flag == 6)))
+		if (line[0] == '\n')
 		{
-			raw_map_filler(line, map, fd, header);
-			break ;
+			free(line);
+			line = get_next_line(fd);
+			continue;
 		}
-		else if (line[0] == '\n')
-			continue ;
+		if (header->ea_path && header->we_path && header->so_path 
+			&& header->no_path && is_map_started(line) == 1)
+		{
+			if (header->flag == 6) // Map başladı mı?
+			{
+				raw_map_filler(line, map, fd, header);
+				break ;
+			}
+			else
+			{ // Flag 6 ama hala map başlamadı
+				free(line);
+				error_exit_all("Please enter identifiers correctly!", header,
+					map);
+			}
+		}
 		else
 		{
 			identifier_check(header, line);
@@ -121,5 +152,6 @@ void	header_parse(int fd, t_header *header, t_map *map)
 			identifier_load(header, map, line);
 		}
 		free(line);
+		line = get_next_line(fd);
 	}
 }

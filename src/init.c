@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:35:12 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/21 15:22:00 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/23 13:00:47 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void init_draw(t_draw_info *draw)
+{
+	draw->step = 0;
+	draw->tex_x = 0;
+	draw->tex_y = 0;
+	draw->texPos = 0;
+	draw->tex = NULL;
+}
 
 t_header	*init_header(void)
 {
@@ -105,6 +114,8 @@ t_mlx	*ft_mlx_init(t_map *map, t_header *header, t_textures *tex)
 	mlx->keys.a = 0;
 	mlx->keys.s = 0;
 	mlx->keys.d = 0;
+	mlx->keys.right = 0;
+	mlx->keys.left = 0;
 	return (mlx);
 }
 

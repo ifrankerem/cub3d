@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/21 15:21:57 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/22 14:48:15 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	main(int argc, char **argv)
 	main_parser(argv[1], header, map);
 	player_init(map);
 	mlx = ft_mlx_init(map, header, &tex);
-	//ft_texture_init(mlx, &tex);
+	ft_texture_init(mlx, &tex);
 	open_window(mlx, map, header);
-	mlx_loop_hook(mlx->ptr, draw_loop, mlx);
+	mlx_loop_hook(mlx->ptr, ft_3d, mlx);
 	mlx_hook(mlx->win, 2, 1L << 0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 1L << 1, key_release, mlx);
 	mlx_hook(mlx->win, 17, 0, close_window, mlx);

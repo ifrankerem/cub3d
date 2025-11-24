@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 02:55:45 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/21 15:26:48 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/22 14:30:08 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,16 @@ void	ft_wall_dist(t_player *player)
 		player->perpWallDist = player->sideDistY - player->deltaDistY;
 }
 
-// void	ft_line_height(t_player *player, t_map *map)
-// {
-// 	player->line_height = (int)(WIN_H / player->perpWallDist);
-// 	player->drawStart = -player->line_height / 2 + WIN_H / 2;
-// 	if (player->drawStart < 0)
-// 		player->drawStart = 0;
-// 	player->drawEnd = player->line_height / 2 + WIN_H / 2;
-// 	if (player->drawEnd >= WIN_H)
-// 		player->drawEnd = WIN_H - 1;
-// }
+void	ft_line_height(t_player *player)
+{
+	player->line_height = (int)(WIN_H / player->perpWallDist);
+	player->drawStart = -player->line_height / 2 + WIN_H / 2;
+	if (player->drawStart < 0)
+		player->drawStart = 0;
+	player->drawEnd = player->line_height / 2 + WIN_H / 2;
+	if (player->drawEnd >= WIN_H)
+		player->drawEnd = WIN_H - 1;
+}
 
 t_texture	*get_texture(t_player *player, t_textures *tex)
 {

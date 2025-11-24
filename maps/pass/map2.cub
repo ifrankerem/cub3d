@@ -1,9 +1,9 @@
-NO ./n.xpm
-SO ./s.xpm
-WE ./w.xpm
-EA ./e.xpm
-F 220,100,0
-C 225,30,0
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
+F 0,0,0
+C 255,200,100
 
 11111
 1N001

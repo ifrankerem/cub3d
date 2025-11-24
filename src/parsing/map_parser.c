@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 01:30:17 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/24 21:26:59 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	is_chars_valid(t_map *map, t_header *header)
+void	is_chars_valid(t_map *map, t_header *header)
 {
 	int	i;
 	int	j;
@@ -103,15 +103,15 @@ static void	make_grid(t_map *map, t_header *header)
 			max_x = len;
 		column++;
 	}
+		map->height = column + 2;  // Önce height'ı hesapla
+	map->width = max_x + 2;
 	map->grid = malloc(sizeof(char *) * (column + 3)); // for null
 	if (!map->grid)
 		error_exit_all("Malloc Error", header, map);
 	while (++y < column + 2)
 		map->grid[y] = ft_grid_maker(sizeof(char), (max_x + 2), map, header);
-	map->grid[y] = NULL;
+	map->grid[y] = NULL;  // Şimdi NULL terminator'ı ekle
 	fill_grid(map);
-	map->height = y;
-	map->width = max_x + 2;
 }
 
 static void	info(t_map *map, t_header *header)
@@ -141,10 +141,11 @@ static void	info(t_map *map, t_header *header)
 void	map_parse(t_map *map, t_header *header)
 {
 	char	**cpy_map;
-
+	// is_xpm_valid(map, header);
 	is_chars_valid(map, header);
 	is_empty_line(map, header);
 	info(map, header);
+	is_map_closed(map, header);
 	cpy_map = make_copy(map, header);
 	copy_mapcontrol_space(map, cpy_map, header);
 	free_2d_array(cpy_map);
