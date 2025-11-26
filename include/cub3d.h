@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/16 01:03:14 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/26 17:19:33 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@
 # include <stdio.h> // for printf
 # include <stdlib.h>
 # include <unistd.h>
+#include <sys/time.h>
 
 # define WIN_W 1920
 # define WIN_H 1080
 # define FOV_DEG 66.0
 # define M_PI 3.14159265358979323846
-# define ROT_SPEED 0.05
-# define MOVE_SPEED 0.05
+// # define ROT_SPEED 0.05
+// # define MOVE_SPEED 0.05
 
 enum			TYPE
 {
@@ -38,6 +39,7 @@ enum			TYPE
 	EA,
 	F,
 	C,
+	NL,
 	ERROR,
 };
 
@@ -93,6 +95,15 @@ typedef struct s_textures
 	int ceiling_color; // RGB format: 0xRRGGBB
 }				t_textures;
 
+typedef struct s_draw_info
+{
+	t_texture	*tex;
+	double		step;
+	double		texPos;
+	int			tex_x;
+	int			tex_y;
+}				t_draw_info;
+
 typedef struct s_img
 {
 	void *img;    // MLX image pointer (handle)
@@ -106,6 +117,9 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
+	long long time;
+	double move_speed;
+	double rot_speed;
 	double dirX;   // oyuncunun baktığı yön
 	double dirY;   // oyuncunun baktığı yön
 	double planeX; // oyuncu plane (aslında kendisi gibi bişi)
@@ -142,6 +156,8 @@ typedef struct s_keys
 	int			a;
 	int			s;
 	int			d;
+	int right;
+	int left;
 }				t_keys;
 
 typedef struct s_mlx
@@ -170,6 +186,8 @@ t_map			*init_map(void);
 t_mlx			*ft_mlx_init(t_map *map, t_header *header, t_textures *tex);
 void			player_init(t_map *map);
 void			ft_texture_init(t_mlx *mlx, t_textures *tex);
+void			init_draw(t_draw_info *draw);
+
 // Utils
 int				ft_isspace(char c);
 void			ft_split_free(char **temp);
@@ -208,7 +226,9 @@ int				draw_loop(t_mlx *mlx);
 void			ft_ray_maker(t_player *player, int x, int screen_width);
 void			ft_dda(t_player *player, t_map *map);
 void			ft_wall_dist(t_player *player);
-void			ft_3d(t_mlx *mlx, t_textures *tex, t_header *header);
+int				ft_3d(t_mlx *mlx);
+t_texture		*get_texture(t_player *player, t_textures *tex);
+void			ft_line_height(t_player *player);
 
 // void		close_window(void);
 void			error_map_exit(t_map *init_map);
@@ -216,5 +236,17 @@ void			error_exit_header(t_header *init);
 void			cleanup_all(t_header *header, t_map *map);
 void			free_2d_array(char **array);
 void			error_exit_all(char *msg, t_header *header, t_map *map);
+
+// xpm_control.c
+void	is_xpm_valid(t_map *map, t_header *header, int type);
+
+// is_map_close.c
+void	is_map_closed(t_map *map, t_header *header);
+
+// main_control.c
+void	control_map(t_map *map, t_header *header);
+
+// calculate_FPS.c
+void ft_calc_FPS(t_player *player);
 
 #endif

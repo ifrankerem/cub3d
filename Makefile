@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+         #
+#    By: buket <buket@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/12 03:25:55 by iarslan          ###   ########.fr        #
+#    Updated: 2025/11/26 17:16:07 by buket            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,12 +43,16 @@ SRC := \
 	$(PARSE_DIR)/cpymap.c \
 	$(PARSE_DIR)/parsing_utils.c \
 	$(PARSE_DIR)/parsing_utils2.c \
+	$(PARSE_DIR)/controls/is_map_close.c \
+	$(PARSE_DIR)/controls/xpm_control.c \
 	$(EXIT_DIR)/exit_1.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
 	debug/debug.c \
 	$(MLX_SRC_DIR)/mlx.c \
 	$(RAYCAST_DIR)/2D/2d.c \
+	$(RAYCAST_DIR)/3D/3d.c \
+	$(RAYCAST_DIR)/calculate_FPS.c \
 	$(SRC_DIR)/init.c \
 	$(MLX_SRC_DIR)/movement.c \
 	$(RAYCAST_DIR)/raycast.c

@@ -1,7 +1,7 @@
-NO ./a.xpm
-SO ./b.xpm
-WE ./c.xpm
-EA ./d.xpm
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
 F 0,128,255
 C 255,0,128
 
