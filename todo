@@ -1,2 +1,6 @@
-1-) leak check
-2-).cub dısında baska uzantili map dosyası açmamalı
+1-) leak check (halledildi)
+2-).cub dısında baska uzantili map dosyası açmamalı (halledildi)
+
+3-) map10'da map yok hata veriyo ama no map hatası vermiyo bu soerun olabilir mi emin değilim?
+4-) map9'da da benzer bir şey var.
+5-) en son wall_hole_east mapindeki hata mesajını düzeltiyodum

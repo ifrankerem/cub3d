@@ -6,7 +6,7 @@
 #    By: buket <buket@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/24 16:10:33 by buket            ###   ########.fr        #
+#    Updated: 2025/11/29 16:09:49 by buket            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,25 +36,34 @@ LIBFT_LDFLAGS := -L$(LIBFT_DIR) -lft
 # --- Kaynaklar (wildcard YOK; tek tek yazıldı) ---
 SRC := \
 	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/inits/player_initialization.c \
+	$(SRC_DIR)/inits/init.c \
 	$(PARSE_DIR)/main_parser.c \
 	$(PARSE_DIR)/map_parser.c \
 	$(PARSE_DIR)/header_parser.c \
+	$(PARSE_DIR)/i_load.c \
+	$(PARSE_DIR)/load_tex.c \
+	$(PARSE_DIR)/valid_map_control.c \
 	$(PARSE_DIR)/flood_fill.c \
 	$(PARSE_DIR)/cpymap.c \
+	$(PARSE_DIR)/rgb_load.c \
 	$(PARSE_DIR)/parsing_utils.c \
 	$(PARSE_DIR)/parsing_utils2.c \
-	$(PARSE_DIR)/controls/is_map_close.c \
-	$(PARSE_DIR)/controls/xpm_control.c \
+	$(PARSE_DIR)/is_map_close.c \
+	$(PARSE_DIR)/xpm_control.c \
 	$(EXIT_DIR)/exit_1.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
 	debug/debug.c \
 	$(MLX_SRC_DIR)/mlx.c \
+	$(MLX_SRC_DIR)/key_actions.c \
 	$(RAYCAST_DIR)/2D/2d.c \
 	$(RAYCAST_DIR)/3D/3d.c \
-	$(SRC_DIR)/init.c \
+	$(RAYCAST_DIR)/draw.c \
+	$(RAYCAST_DIR)/calculate_FPS.c \
 	$(MLX_SRC_DIR)/movement.c \
-	$(RAYCAST_DIR)/raycast.c
+	$(RAYCAST_DIR)/raycast.c \
+	$(RAYCAST_DIR)/raycast_scnd.c
 	
 
 # Objeleri kaynaklardan türet (wildcard değil; pattern subst. serbest)

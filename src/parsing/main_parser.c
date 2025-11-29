@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:15:14 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/24 21:47:04 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 17:41:32 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	file_name_control(char *header_map, t_map *map, t_header *header)
 	if ((end - 4) > 0 && header_map[end] == 'b' && header_map[end - 1] == 'u'
 		&& header_map[end - 2] == 'c' && header_map[end - 3] == '.')
 		return ;
-	error_exit_all("Wrong file name!", header, map);
+	error_exit_all("Wrong file name!", header, map, NULL);
 }
 
 void	main_parser(char *header, t_header *init, t_map *map)
@@ -45,12 +45,13 @@ void	main_parser(char *header, t_header *init, t_map *map)
 
 	fd = open(header, O_RDONLY);
 	if (fd == -1)
-		error_exit_all("Invalid file name!", init, map); // bu mesaj fd ile değiştirilse nasıl olur? wrong file name mesajıyla karışmaması açısından
+		error_exit_all("Invalid file name!", init, map, NULL);
+	// bu mesaj fd ile değiştirilse nasıl olur? wrong file name mesajıyla karışmaması açısından
 	file_name_control(header, map, init);
 	header_parse(fd, init, map);
 	// print_raw_map(map);
-	if(!map->raw_map)
-		error_exit_all("No Map!", init, map);
-	//print_raw_map(map);
+	if (!map->raw_map)
+		error_exit_all("No Map!", init, map, NULL);
+	// print_raw_map(map);
 	map_parse(map, init);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/24 17:31:20 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 18:44:27 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_split_free(char **temp)
 	free(temp);
 }
 
-char	*ft_path_maker(char *line, t_header *init, t_map *map)
+char	*ft_path_maker(char *line, t_header *init, t_map *map, int fd)
 {
 	char	*ptr;
 	char	*start;
@@ -49,16 +49,24 @@ char	*ft_path_maker(char *line, t_header *init, t_map *map)
 	ptr += 2;
 	while (ft_isspace(*ptr))
 		ptr++;
-	if (init->type == F || init->type == C)
-		return (ptr);
 	start = ptr;
 	end = start;
+	if (init->type == F || init->type == C)
+	{
+		while (*end && *end != '\n')
+			end++;
+		return (ft_substr(start, 0, end - start));
+	}
 	while (*end && !ft_isspace(*end) && *end != '\n')
 		end++;
 	while (ft_isspace(*end))
 		end++;
 	if (*end != '\0' && *end != '\n')
-		error_exit_all("Extra tokens in path line!", init, map);
+	{
+		free(line);
+		cleanup_gnl(fd);
+		error_exit_all("Extra tokens in path line!", init, map, NULL);
+	}
 	path = ft_substr(start, 0, end - start);
 	return (path);
 }
@@ -99,9 +107,9 @@ void	*ft_grid_maker(size_t count, size_t size, t_map *init_map,
 	size_t			i;
 
 	i = 0;
-	x = malloc(count * size);
+	x = malloc(count * (size + 1));
 	if (x == NULL)
-		error_exit_all("Malloc Error", header, init_map);
+		error_exit_all("Malloc Error", header, init_map, NULL);
 	str = (unsigned char *)x;
 	while (i < (count * size))
 	{
