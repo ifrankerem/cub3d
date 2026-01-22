@@ -6,106 +6,71 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 02:55:45 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/22 14:30:08 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/12/27 15:51:16 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_ray_maker(t_player *player, int x, int screen_width)
+static void	init_map_variables(t_player *player)
 {
-	double	cameraX;
+	player->map_x = (int)player->x;
+	player->map_y = (int)player->y;
+}
 
-	cameraX = 2 * x / (double)screen_width - 1; // en sol -1 orta 0 en sağ + 1
-	player->rayDirX = player->dirX + player->planeX * cameraX;
-	player->rayDirY = player->dirY + player->planeY * cameraX;
-	player->deltaDistX = fabs(1.0 / player->rayDirX);
-	player->deltaDistY = fabs(1.0 / player->rayDirY);
+void	calculate_side_dist(t_player *player)
+{
+	init_map_variables(player);
+	if (player->raydir_x < 0)
+	{
+		player->step_x = -1;
+		player->side_dist_x = (player->x - player->map_x)
+			* player->delta_dist_x;
+	}
+	else
+	{
+		player->step_x = 1;
+		player->side_dist_x = (player->map_x + 1.0 - player->x)
+			* player->delta_dist_x;
+	}
+	if (player->raydir_y < 0)
+	{
+		player->step_y = -1;
+		player->side_dist_y = (player->y - player->map_y)
+			* player->delta_dist_y;
+	}
+	else
+	{
+		player->step_y = 1;
+		player->side_dist_y = (player->map_y + 1.0 - player->y)
+			* player->delta_dist_y;
+	}
 }
 
 void	ft_dda(t_player *player, t_map *map)
 {
-	int	stepX;
-	int	stepY;
-	int	mapX;
-	int	mapY;
-
-	mapX = (int)player->x;
-	mapY = (int)player->y;
-	if (player->rayDirX < 0)
-	{
-		stepX = -1;
-		player->sideDistX = (player->x - mapX) * player->deltaDistX;
-	}
-	else
-	{
-		stepX = 1;
-		player->sideDistX = (mapX + 1.0 - player->x) * player->deltaDistX;
-	}
-	if (player->rayDirY < 0)
-	{
-		stepY = -1;
-		player->sideDistY = (player->y - mapY) * player->deltaDistY;
-	}
-	else
-	{
-		stepY = 1;
-		player->sideDistY = (mapY + 1.0 - player->y) * player->deltaDistY;
-	}
+	calculate_side_dist(player);
 	while (player->wall_hit == 0)
 	{
-		if (player->sideDistX < player->sideDistY)
+		if (player->side_dist_x < player->side_dist_y)
 		{
-			player->sideDistX += player->deltaDistX;
-			mapX += stepX;
+			player->side_dist_x += player->delta_dist_x;
+			player->map_x += player->step_x;
 			player->side = 0;
-			// dikey eksende bir duvara çarptı x = a için bir dogru gibi düsün
 		}
 		else
 		{
-			player->sideDistY += player->deltaDistY;
-			mapY += stepY;
+			player->side_dist_y += player->delta_dist_y;
+			player->map_y += player->step_y;
 			player->side = 1;
-			// yatay eksende bir duvara çarptı y = a için bir dogru gibi düsün
 		}
-		if (map->grid[mapY][mapX] == '1')
+		if (player->map_x >= map->width || player->map_y >= map->height
+			|| player->map_x < 0 || player->map_y < 0)
+		{
 			player->wall_hit = 1;
-	}
-}
-
-void	ft_wall_dist(t_player *player)
-{
-	if (player->side == 0)
-		player->perpWallDist = player->sideDistX - player->deltaDistX;
-	else
-		player->perpWallDist = player->sideDistY - player->deltaDistY;
-}
-
-void	ft_line_height(t_player *player)
-{
-	player->line_height = (int)(WIN_H / player->perpWallDist);
-	player->drawStart = -player->line_height / 2 + WIN_H / 2;
-	if (player->drawStart < 0)
-		player->drawStart = 0;
-	player->drawEnd = player->line_height / 2 + WIN_H / 2;
-	if (player->drawEnd >= WIN_H)
-		player->drawEnd = WIN_H - 1;
-}
-
-t_texture	*get_texture(t_player *player, t_textures *tex)
-{
-	if (player->side == 0)
-	{
-		if (player->rayDirX > 0)
-			return (&tex->east);
-		else
-			return (&tex->west);
-	}
-	else
-	{
-		if (player->rayDirY > 0)
-			return (&tex->south);
-		else
-			return (&tex->north);
+			return ;
+		}
+		if (map->grid[player->map_y][player->map_x] == '1')
+			player->wall_hit = 1;
 	}
 }

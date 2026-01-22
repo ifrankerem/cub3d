@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpymap.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 03:12:48 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/09 20:20:31 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/12/27 15:47:18 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	**make_copy(t_map *map, t_header *header)
 	y = 0;
 	cpy_map = (char **)malloc(sizeof(char *) * (map->height + 1));
 	if (!cpy_map)
-		error_exit_all("Malloc Error!", header, map);
+		error_exit_all("Malloc Error!", header, map, NULL);
 	while (map->grid[y])
 	{
 		x = 0;
 		cpy_map[y] = (char *)malloc(sizeof(char) * (map->width) + 1);
 		if (!(cpy_map[y]))
-			error_exit_all("Malloc Error!", header, map);
+			error_exit_all("Malloc Error!", header, map, NULL);
 		while (map->grid[y][x])
 		{
 			cpy_map[y][x] = map->grid[y][x];
@@ -70,7 +70,7 @@ void	copy_mapcontrol_space(t_map *map, char **cpy_map, t_header *header)
 				{
 					free_2d_array(cpy_map);
 					error_exit_all("There is space which is not covered!",
-						header, map);
+						header, map, NULL);
 				}
 			}
 			x++;

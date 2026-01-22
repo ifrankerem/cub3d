@@ -1,45 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*   control_playable.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/02 01:33:28 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/30 15:07:14 by bucolak          ###   ########.fr       */
+/*   Created: 2025/11/30 16:35:43 by bucolak           #+#    #+#             */
+/*   Updated: 2025/12/27 15:46:04 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	fill_space(char **cpy_map, int x, int y, t_map *map)
+void	ff_playable(char **cpy_map, int x, int y, t_map *map)
 {
 	if (y < 0 || y >= map->height || x < 0 || x >= map->width)
 		return ;
-	if (!ft_isspace(cpy_map[y][x]))
+	if (cpy_map[y][x] != '0' && cpy_map[y][x] != '1')
 		return ;
-	cpy_map[y][x] = 'X';
-	fill_space(cpy_map, x + 1, y, map);
-	fill_space(cpy_map, x - 1, y, map);
-	fill_space(cpy_map, x, y + 1, map);
-	fill_space(cpy_map, x, y - 1, map);
+	cpy_map[y][x] = 'Y';
+	ff_playable(cpy_map, x + 1, y, map);
+	ff_playable(cpy_map, x - 1, y, map);
+	ff_playable(cpy_map, x, y + 1, map);
+	ff_playable(cpy_map, x, y - 1, map);
 }
 
-void	flood_fill_for_space(char **cpy_map, t_map *map)
+int	is_map_multipel(char **cpy_map)
 {
-	int	x;
-	int	y;
+	int	i;
+	int	j;
 
-	y = 0;
-	while (y < map->height)
+	i = -1;
+	while (cpy_map[++i])
 	{
-		x = 0;
-		while (x < map->width)
+		j = -1;
+		while (cpy_map[i][++j])
 		{
-			if (ft_isspace(cpy_map[y][x]))
-				fill_space(cpy_map, x, y, map);
-			x++;
+			if (cpy_map[i][j] == '0' || cpy_map[i][j] == '1')
+				return (0);
 		}
-		y++;
 	}
+	return (1);
 }
