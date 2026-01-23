@@ -19,7 +19,7 @@ Collaborator: Developed together with @bucolak (https://github.com/bucolak)
 
 
 ------------------------------------------------------------
-FEATURES
+## FEATURES
 - Real-time 3D rendering using raycasting
 - Directional wall textures (NO / SO / WE / EA)
 - Floor & ceiling colors (F / C in RGB)
@@ -29,7 +29,7 @@ FEATURES
 - Strict map validation (valid characters, single spawn, closed map)
 
 ------------------------------------------------------------
-REQUIREMENTS
+## REQUIREMENTS
 - cc / clang
 - make
 - miniLibX
@@ -37,7 +37,7 @@ REQUIREMENTS
 - Math library: -lm
 
 ------------------------------------------------------------
-BUILD
+## BUILD
 make
 
 Clean rules:
@@ -46,17 +46,17 @@ make fclean
 make re
 
 ------------------------------------------------------------
-RUN
+## RUN
 ./cub3D maps/example.cub
 
 ------------------------------------------------------------
-CONTROLS
+## CONTROLS
 - W A S D : move
 - Left / Right arrows : rotate camera
 - ESC or window close : quit
 
 ------------------------------------------------------------
-.CUB FILE FORMAT
+## .CUB FILE FORMAT
 
 1) Textures (4 directions)
 NO ./path_to_north_texture
@@ -86,7 +86,7 @@ Example map:
 111111
 
 ------------------------------------------------------------
-VALIDATION RULES (HIGH-LEVEL)
+## VALIDATION RULES (HIGH-LEVEL)
 On invalid input, the program exits with:
 Error
 <explicit message>
@@ -100,7 +100,7 @@ Typical checks:
 - Map must be closed (no leaks to the outside; spaces must be properly enclosed)
 
 ------------------------------------------------------------
-PROJECT NOTES
+## PROJECT NOTES
 - Parsing pipeline: read .cub -> parse header (textures/colors) -> build map grid
 - Map processing: padded rectangular grid for safe bounds checks
 - Closed-map validation: flood-fill style leak detection
