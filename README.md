@@ -1,4 +1,4 @@
-cub3D — RayCaster in C (miniLibX)
+## cub3D — RayCaster in C (miniLibX)
 
 A first-person raycasting engine inspired by Wolfenstein 3D, developed as part of the 42 curriculum. The program parses a .cub scene file (textures, colors, map), validates it strictly, and renders a real-time 3D view using raycasting.
 
