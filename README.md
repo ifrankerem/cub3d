@@ -6,7 +6,7 @@ Built with: C, miniLibX
 Collaborator: Developed together with @bucolak (https://github.com/bucolak)
 
 ------------------------------------------------------------
-SHOWCASE / LINKS
+## SHOWCASE / LINKS
 
 - **Excalidraw (DDA + Raycasting Notes):** [Open the diagram](https://link.excalidraw.com/readonly/pAl5QhBGYfPVun4ramNg?darkMode=true)
 - **YouTube Demo:** [Watch the demo](https://www.youtube.com/watch?v=zdqgqyQPoMY)
