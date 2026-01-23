@@ -8,10 +8,10 @@ Collaborator: Developed together with @bucolak (https://github.com/bucolak)
 ------------------------------------------------------------
 SHOWCASE / LINKS
 - Excalidraw (DDA + Raycasting Notes):
-- [<LINK>](https://link.excalidraw.com/readonly/pAl5QhBGYfPVun4ramNg?darkMode=true)
+  https://link.excalidraw.com/readonly/pAl5QhBGYfPVun4ramNg?darkMode=true
 
 - YouTube Demo:
- [<LINK>](https://www.youtube.com/watch?v=zdqgqyQPoMY)
+  https://www.youtube.com/watch?v=zdqgqyQPoMY
 
 - Gameplay Screenshot:
   ![cub3D screenshot](/ss.png)
