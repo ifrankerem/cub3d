@@ -7,14 +7,16 @@ Collaborator: Developed together with @bucolak (https://github.com/bucolak)
 
 ------------------------------------------------------------
 SHOWCASE / LINKS
-- Excalidraw (DDA + Raycasting Notes):
-  https://link.excalidraw.com/readonly/pAl5QhBGYfPVun4ramNg?darkMode=true
 
-- YouTube Demo:
-  https://www.youtube.com/watch?v=zdqgqyQPoMY
+- **Excalidraw (DDA + Raycasting Notes):** [Open the diagram](https://link.excalidraw.com/readonly/pAl5QhBGYfPVun4ramNg?darkMode=true)
+- **YouTube Demo:** [Watch the demo](https://www.youtube.com/watch?v=zdqgqyQPoMY)
 
-- Gameplay Screenshot:
-  ![cub3D screenshot](/ss.png)
+### YouTube Preview
+[![cub3D Demo Video](https://img.youtube.com/vi/zdqgqyQPoMY/hqdefault.jpg)](https://www.youtube.com/watch?v=zdqgqyQPoMY)
+
+### Gameplay Screenshot
+![cub3D screenshot](/ss.png)
+
 
 ------------------------------------------------------------
 FEATURES
