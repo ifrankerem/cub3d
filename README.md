@@ -8,13 +8,12 @@ Collaborator: Developed together with @bucolak (https://github.com/bucolak)
 ------------------------------------------------------------
 SHOWCASE / LINKS
 - Excalidraw (DDA + Raycasting Notes):
-[  <PASTE_EXCALIDRAW_LINK_HERE>](https://link.excalidraw.com/readonly/pAl5QhBGYfPVun4ramNg?darkMode=true)
+- [<LINK>](https://link.excalidraw.com/readonly/pAl5QhBGYfPVun4ramNg?darkMode=true)
 
 - YouTube Demo:
- [ <PASTE_YOUTUBE_LINK_HERE>](https://www.youtube.com/watch?v=zdqgqyQPoMY)
+ [<LINK>](https://www.youtube.com/watch?v=zdqgqyQPoMY)
 
 - Gameplay Screenshot:
-  (Put the image in your repo, e.g. /assets/screenshot.png)
   ![cub3D screenshot](/ss.png)
 
 ------------------------------------------------------------
