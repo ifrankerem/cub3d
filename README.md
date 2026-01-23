@@ -17,7 +17,6 @@ Collaborator: Developed together with @bucolak (https://github.com/bucolak)
 ### Gameplay Screenshot
 ![cub3D screenshot](/ss.png)
 
-
 ------------------------------------------------------------
 ## FEATURES
 - Real-time 3D rendering using raycasting
